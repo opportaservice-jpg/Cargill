@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f2efe8">
+<title>CARGIL — Aujourd'hui</title>
+<link rel="icon" href="/logo.png">
+<style>
+:root{--bg:#f2efe8;--ink:#1d1c19;--muted:#89877f;--orange:#e85b32;--green:#246d55;--line:#e8e3d9;--white:#fff;--dark:#1c1b18}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:var(--bg)}
+body{display:flex;justify-content:center}.app{width:100%;max-width:520px;min-height:100vh;padding:0 18px 112px;position:relative;overflow:hidden}
+.top{display:flex;align-items:center;justify-content:space-between;padding:20px 2px 18px}.userline{display:flex;align-items:center;gap:12px;min-width:0}.avatar{width:58px;height:58px;flex:0 0 58px;border-radius:50%;background:var(--orange);color:#fff;display:grid;place-items:center;font-weight:850;font-size:20px}.date{font-size:11px;letter-spacing:2px;color:#9b9990;text-transform:uppercase}.greeting{color:#a34327;font-weight:750}.phone{font-size:25px;font-weight:850;letter-spacing:-.8px;margin-top:3px;white-space:nowrap}.brand-mini{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:850;letter-spacing:2px;color:#8e8a80}.brand-mini img{width:34px;height:34px;border-radius:10px;object-fit:contain;display:block}
+.balance{background:linear-gradient(145deg,#fffefa,#f7f2e9);border:1px solid #fff;border-radius:34px;padding:24px 22px 20px;box-shadow:0 12px 30px #342b1710;position:relative;overflow:hidden}
+.balance:after{content:"";position:absolute;right:-20px;bottom:-30px;width:190px;height:190px;background:url(/logo.png) center/contain no-repeat;opacity:.12;pointer-events:none}
+.cardtop{display:flex;align-items:center;justify-content:space-between;gap:8px;position:relative;z-index:1}.pass{font-size:12px;letter-spacing:2px;color:#99958b}.pass b{font-size:19px;letter-spacing:-1px;color:#171714}.pill{border:1px solid #e9e4da;background:#fff;border-radius:30px;padding:7px 11px;font-size:11px;color:#69665e;white-space:nowrap}.pill strong{background:var(--orange);color:#fff;border-radius:50%;padding:3px 7px;margin-right:5px}
+.balance-label{color:#99958b;font-size:13px;margin:28px 0 2px;position:relative;z-index:1}.amount-row{display:flex;align-items:center;gap:7px;position:relative;z-index:1}.amount{font-size:66px;line-height:1.1;font-weight:850;letter-spacing:-3px}.currency{font-size:28px;color:#969188}.available{font-size:13px;color:#969188;margin-top:7px;position:relative;z-index:1}
+.stats{display:grid;grid-template-columns:1fr 1fr;background:#ffffffc9;border:1px solid #f1ede6;border-radius:20px;margin:22px 0 17px;position:relative;z-index:1;overflow:hidden}.stat{padding:13px 14px}.stat+ .stat{border-left:1px solid #eee9e0}.stat small{display:block;color:#99958b;font-size:11px}.stat b{font-size:20px;display:block;margin-top:3px}.positive{color:var(--green)}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;position:relative;z-index:1}.action{border:0;border-radius:30px;height:58px;font-size:16px;font-weight:750;display:flex;align-items:center;justify-content:center;gap:9px;text-decoration:none}.action.primary{background:var(--dark);color:#fff;box-shadow:0 7px 16px #0002}.action.secondary{background:#fff;color:var(--ink);border:1px solid #e7e2d9}
+.shortcuts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:22px 0 14px}.shortcut{min-height:96px;border:1px solid #e5e7df;border-radius:27px;padding:16px;background:linear-gradient(130deg,#edf3e9,#fff);display:flex;align-items:center;gap:13px;color:var(--ink);text-decoration:none;font-size:18px;font-weight:650}.shortcut:nth-child(2){background:linear-gradient(130deg,#edf0fa,#fff);border-color:#e2e5f0}.shortcut .emoji{font-size:34px}.arrow{margin-left:auto;color:#999;font-size:21px}
+.quicklinks{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 22px}.quick{background:#fff;border:1px solid #eee9df;border-radius:17px;padding:13px 14px;text-decoration:none;color:var(--ink);display:flex;align-items:center;gap:10px;font-weight:650;font-size:13px}.quick span{font-size:19px}
+.info-card{background:#fff;border:1px solid #fff;border-radius:28px;padding:20px 18px;margin:22px 0 20px}.eyebrow{color:#a34a2d;font-size:11px;letter-spacing:2px;font-weight:750}.info-card h2{font-size:22px;line-height:1.2;margin:8px 0 8px}.info-card p{font-size:13px;color:#77746c;line-height:1.55;margin:0}.info-row{display:flex;gap:10px;margin-top:15px}.info-chip{background:#f7f5f0;border-radius:15px;padding:12px;flex:1;font-size:11px;color:#77746c}.info-chip b{display:block;font-size:15px;color:#222;margin-top:4px}
+.bottom{position:fixed;z-index:10;bottom:max(12px,env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);width:min( calc(100% - 28px),492px);display:grid;grid-template-columns:repeat(4,1fr);background:#ffffffed;border:1px solid #e5e0d7;border-radius:34px;padding:7px;box-shadow:0 8px 30px #29251b20;backdrop-filter:blur(15px)}
+.nav{min-height:68px;border-radius:25px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;text-decoration:none;color:#77756d;font-size:11px;font-weight:650}.nav .ico{font-size:23px;line-height:1}.nav.active{background:var(--dark);color:#fff}
+.loading{opacity:.65}.toast{position:fixed;z-index:30;left:50%;bottom:100px;transform:translateX(-50%);background:#24231f;color:#fff;padding:11px 16px;border-radius:20px;font-size:12px;display:none;max-width:90%}
+/* Fenêtre d'accueil */
+.modal-backdrop{position:fixed;inset:0;z-index:50;background:#171612a8;display:none;align-items:center;justify-content:center;padding:18px}
+.modal-backdrop.show{display:flex}.modal{width:min(100%,460px);max-height:min(86vh,760px);background:#fffefa;border-radius:27px;box-shadow:0 25px 90px #0005;display:flex;flex-direction:column;overflow:hidden}
+.modal-head{padding:20px 20px 14px;background:linear-gradient(140deg,#173b2e,#285c46);color:#fff;position:relative}.modal-kicker{font-size:10px;letter-spacing:2px;color:#e4d3a6;font-weight:750}.modal-head h2{font-size:22px;margin:7px 42px 5px 0;line-height:1.2}.modal-head p{font-size:12px;color:#d7e3da;line-height:1.5;margin:0}.close{position:absolute;right:14px;top:14px;width:35px;height:35px;border:1px solid #ffffff44;background:#ffffff17;color:#fff;border-radius:50%;font-size:21px;cursor:pointer}
+.modal-scroll{overflow-y:auto;padding:17px 18px 20px;overscroll-behavior:contain}.modal-intro{font-size:13px;line-height:1.55;color:#66645c;margin:0 0 14px}.rule-list{display:grid;gap:9px}.rule{display:flex;gap:11px;padding:12px;background:#f5f3ed;border-radius:15px}.rule-icon{width:32px;height:32px;flex:0 0 32px;border-radius:10px;background:#e9e0ca;display:grid;place-items:center}.rule b{display:block;font-size:12px;margin:1px 0 3px}.rule span{display:block;color:#77746c;font-size:11px;line-height:1.45}.channels{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:15px}.channel{display:flex;align-items:center;justify-content:center;gap:7px;min-height:46px;border-radius:13px;text-decoration:none;color:#fff;font-size:12px;font-weight:750}.wa{background:#218b57}.tg{background:#2489c7}.modal-foot{padding:12px 18px 17px;border-top:1px solid #eee9df;background:#fffefa}.continue{width:100%;height:48px;border:0;border-radius:14px;background:#1d3f31;color:#fff;font-size:13px;font-weight:800;cursor:pointer}
+@media(min-width:520px){body{padding:0}.app{background:var(--bg)}}@media(max-width:360px){.amount{font-size:56px}.shortcut{font-size:15px;padding:12px}.phone{font-size:22px}}
+</style>
+</head>
+<body>
+<main class="app">
+ <header class="top">
+  <div class="userline"><div class="avatar" id="avatar">C</div><div><div class="date"><span id="dateText">AUJOURD'HUI</span> · <span class="greeting" id="greeting">BONJOUR</span></div><div class="phone" id="userPhone">Mon compte</div></div></div>
+  <div class="brand-mini"><img src="/logo.png" alt="Logo CARGIL"><span>CARGIL</span></div>
+ </header>
+ <section class="balance">
+  <div class="cardtop"><div class="pass"><b>CARGIL</b> &nbsp; ESPACE MEMBRE</div><div class="pill"><strong id="activeCount">0</strong> Forfaits actifs</div></div>
+  <div class="balance-label">Solde du membre</div>
+  <div class="amount-row"><span class="amount" id="balance">—</span><span class="currency">FCFA</span></div>
+  <div class="available">Solde disponible <b id="available">— FCFA</b></div>
+  <div class="stats">
+   <div class="stat"><small>Crédité aujourd'hui</small><b class="positive" id="todayCredit">—</b></div>
+   <div class="stat"><small>Total crédité</small><b id="totalCredit">—</b></div>
+  </div>
+  <div class="actions"><a class="action primary" href="recharge.html">↙ &nbsp; Recharge</a><a class="action secondary" href="retrait.html">↗ &nbsp; Retrait</a></div>
+ </section>
+ <section class="shortcuts">
+  <a class="shortcut" href="buzz.html"><span class="emoji">📣</span><span>Buzz</span><span class="arrow">↗</span></a>
+  <a class="shortcut" href="suivi.html"><span class="emoji">📊</span><span>Suivi</span><span class="arrow">↗</span></a>
+ </section>
+ <section class="quicklinks">
+  <a class="quick" href="historique.html"><span>🧾</span> Historique <span class="arrow">›</span></a>
+  <a class="quick" href="forfaits.html"><span>▦</span> Mes forfaits <span class="arrow">›</span></a>
+ </section>
+ <section class="info-card">
+  <div class="eyebrow">VOTRE ESPACE CARGIL</div>
+  <h2>Tout votre parcours, au même endroit.</h2>
+  <p>Consultez vos forfaits, suivez vos activités et retrouvez facilement vos opérations depuis votre tableau de bord.</p>
+  <div class="info-row"><div class="info-chip">Forfaits actifs<b id="activeCount2">0</b></div><div class="info-chip">Compte membre<b id="memberStatus">Actif</b></div></div>
+ </section>
+ <nav class="bottom" aria-label="Navigation principale">
+  <a class="nav active" href="accueil.html"><span class="ico">⌂</span><span>Aujourd'hui</span></a>
+  <a class="nav" href="forfaits.html"><span class="ico">▦</span><span>Forfaits</span></a>
+  <a class="nav" href="reseau.html"><span class="ico">♧</span><span>Réseau</span></a>
+  <a class="nav" href="compte.html"><span class="ico">◎</span><span>Compte</span></a>
+ </nav>
+</main>
+<div class="toast" id="toast" role="status"></div>
+<div class="modal-backdrop" id="welcomeModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+ <section class="modal">
+  <header class="modal-head">
+   <div class="modal-kicker">BIENVENUE CHEZ CARGIL</div>
+   <h2 id="modalTitle">Bienvenue dans votre communauté !</h2>
+   <p>Quelques informations utiles pour bien commencer. Prenez un instant pour les parcourir.</p>
+   <button class="close" id="closeModal" type="button" aria-label="Fermer">×</button>
+  </header>
+  <div class="modal-scroll">
+   <p class="modal-intro">CARGIL met à votre disposition un espace membre pour gérer vos recharges, vos forfaits, vos retraits et le suivi de vos activités. Voici les règles essentielles à connaître :</p>
+   <div class="rule-list">
+    <div class="rule"><div class="rule-icon">💳</div><div><b>Dépôt minimum : 3 000 FCFA</b><span>Le montant minimum pour soumettre une demande de recharge est de 3 000 FCFA. La demande reste en attente jusqu'à sa validation.</span></div></div>
+    <div class="rule"><div class="rule-icon">↗</div><div><b>Retrait minimum : 1 500 FCFA</b><span>Vous devez avoir acheté au moins un forfait avant de pouvoir demander un retrait.</span></div></div>
+    <div class="rule"><div class="rule-icon">％</div><div><b>Frais de retrait : 18 %</b><span>Les frais sont inclus dans le montant demandé. Exemple : pour 10 000 FCFA demandés, 1 800 FCFA de frais sont déduits et 8 200 FCFA sont versés.</span></div></div>
+    <div class="rule"><div class="rule-icon">🕗</div><div><b>Horaires des retraits : 08 h à 18 h</b><span>Les demandes de retrait sont disponibles selon les horaires du Burkina Faso (Africa/Ouagadougou).</span></div></div>
+    <div class="rule"><div class="rule-icon">📈</div><div><b>Suivez vos forfaits</b><span>Consultez la rubrique Forfaits et la page Suivi pour retrouver vos achats et l'évolution de vos activités.</span></div></div>
+    <div class="rule"><div class="rule-icon">🛡️</div><div><b>Utilisez uniquement les canaux officiels</b><span>Rejoignez nos communautés officielles pour recevoir les annonces et informations de la plateforme.</span></div></div>
+   </div>
+   <div class="channels">
+    <a class="channel wa" href="https://whatsapp.com/channel/0029VbEN9Co23n3kX8qbWu2Net" target="_blank" rel="noopener">◉ WhatsApp officiel</a>
+    <a class="channel tg" href="https://t.me/+ZDXS_mGt-3gxMDU0" target="_blank" rel="noopener">➤ Telegram officiel</a>
+   </div>
+  </div>
+  <footer class="modal-foot"><button class="continue" id="continueBtn" type="button">J'ai compris, continuer</button></footer>
+ </section>
+</div>
+<script>
+const API_URL='https://qixliwrgscpdjplvglvq.supabase.co/functions/v1/cargil-api';
+const SESSION_KEY='cargil_session_token',USER_KEY='cargil_user';
+const token=localStorage.getItem(SESSION_KEY);
+if(!token){location.replace('connexion.html')}
+const cached=(()=>{try{return JSON.parse(localStorage.getItem(USER_KEY)||'{}')}catch{return {}}})();
+const $=id=>document.getElementById(id);
+function money(v){const n=Number(v||0);return Number.isFinite(n)?Math.round(n).toLocaleString('fr-FR'):'0'}
+function setText(id,value){$(id).textContent=value}
+function showToast(msg){const t=$('toast');t.textContent=msg;t.style.display='block';setTimeout(()=>t.style.display='none',3200)}
+function openWelcome(){if(sessionStorage.getItem('cargil_welcome_seen')!=='1')$('welcomeModal').classList.add('show')}
+function closeWelcome(){ $('welcomeModal').classList.remove('show');sessionStorage.setItem('cargil_welcome_seen','1')}
+$('closeModal').addEventListener('click',closeWelcome);$('continueBtn').addEventListener('click',closeWelcome);
+$('welcomeModal').addEventListener('click',e=>{if(e.target===$('welcomeModal'))closeWelcome()});
+const now=new Date();setText('dateText',now.toLocaleDateString('fr-FR',{weekday:'short',day:'2-digit',month:'short'}).replace('.','').toUpperCase());
+const hour=now.getHours();setText('greeting',hour<12?'BONJOUR':hour<18?'BON APRÈS-MIDI':'BONSOIR');
+const phoneText=cached.telephone||cached.phone||'Mon compte';setText('userPhone',phoneText);setText('avatar',(String(phoneText).replace(/\D/g,'').slice(-2)||'C'));
+async function loadDashboard(){
+ try{
+  const res=await fetch(API_URL,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},body:JSON.stringify({action:'dashboard'})});
+  const data=await res.json();
+  if(res.status===401||data.error==='SESSION_INVALIDE'){localStorage.removeItem(SESSION_KEY);localStorage.removeItem(USER_KEY);location.replace('connexion.html');return}
+  if(!res.ok||data.success===false)throw new Error(data.message||data.error||'Chargement impossible');
+  const d=data.dashboard||data.donnees||data;
+  const user=d.utilisateur||data.utilisateur||cached;
+  const wallet=d.portefeuille||d.wallet||d.solde||{};
+  const balance=wallet.solde_disponible??wallet.solde??wallet.balance??d.solde_disponible??d.solde??d.balance??0;
+  const today=wallet.credite_aujourdhui??wallet.credit_today??d.credite_aujourdhui??d.credit_today??0;
+  const total=wallet.total_credite??wallet.total_credit??d.total_credite??d.total_credit??balance;
+  const active=d.forfaits_actifs??d.active_products??d.nombre_forfaits_actifs??(Array.isArray(d.achats)?d.achats.filter(x=>x.statut==='actif'||x.status==='active').length:0);
+  setText('balance',money(balance));setText('available',money(balance)+' FCFA');setText('todayCredit','+'+money(today));setText('totalCredit',money(total));setText('activeCount',money(active));setText('activeCount2',money(active));
+  if(user.telephone||user.phone)setText('userPhone',user.telephone||user.phone);
+  if(user.statut||user.status)setText('memberStatus',user.statut||user.status);
+  localStorage.setItem(USER_KEY,JSON.stringify(user));
+ }catch(err){console.warn('Dashboard:',err);setText('balance','—');setText('available','Solde indisponible');showToast('Impossible de récupérer les données. Vérifiez votre connexion.')}
+}
+openWelcome();loadDashboard();
+</script>
+</body>
+</html>
