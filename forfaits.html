@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#4c9a2a">
+<title>CARGIL — Forfaits</title>
+<link rel="icon" href="/logo.png">
+<style>
+:root{--green-dark:#2f6b14;--green:#4c9a2a;--green-light:#8cc63f;--ink:#1d2a17;--muted:#6b7a63;--line:#d9e4d0;--soft:#f8fbf4}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{min-height:100%}
+body{min-height:100vh;min-height:100dvh;background:radial-gradient(circle at 15% 10%,rgba(140,198,63,.35),transparent 45%),radial-gradient(circle at 90% 90%,rgba(76,154,42,.30),transparent 50%),#eef5e6;background-attachment:fixed;color:var(--ink);font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif;-webkit-font-smoothing:antialiased;display:flex;justify-content:center}
+.i{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:0 0 auto}
+a{color:inherit;text-decoration:none}
+.app{width:100%;max-width:420px;padding:18px 16px 100px}
+
+.top{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.logo-circle{width:52px;height:52px;flex:0 0 52px;border-radius:50%;overflow:hidden;background:#fff;box-shadow:0 0 0 4px rgba(76,154,42,.15),0 8px 18px rgba(47,107,20,.25);display:flex;align-items:center;justify-content:center}
+.logo-circle img{width:100%;height:100%;object-fit:cover;display:block}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:1.5px;color:var(--green)}
+.top h1{font-size:20px;font-weight:800;color:var(--green-dark);margin-top:1px}
+.intro{font-size:12.5px;color:var(--muted);line-height:1.55;margin:0 4px 14px}
+
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:5px;background:#fff;border:1px solid var(--line);border-radius:16px;margin-bottom:14px;box-shadow:0 8px 20px rgba(47,107,20,.08)}
+.tab{height:42px;border:0;border-radius:12px;background:transparent;color:var(--muted);font-size:13px;font-weight:700;font-family:inherit;cursor:pointer;display:flex;justify-content:center;align-items:center;gap:8px}
+.tab small{font-size:11px;background:#eaf4df;color:var(--green-dark);border-radius:10px;padding:1px 7px;font-weight:700}
+.tab.active{background:linear-gradient(135deg,var(--green-dark),var(--green));color:#fff;box-shadow:0 6px 14px rgba(47,107,20,.25)}
+.tab.active small{background:rgba(255,255,255,.2);color:#fff}
+
+.summary{display:flex;justify-content:space-between;align-items:center;margin:0 4px 10px;color:var(--muted);font-size:11px;font-weight:700;letter-spacing:.3px}
+.summary b{color:var(--ink);font-size:12px}
+
+.products{display:grid;gap:12px}
+.product{display:grid;grid-template-columns:36% 1fr;background:#fff;border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:0 10px 26px rgba(47,107,20,.10)}
+.visual{background:linear-gradient(145deg,#eaf4df,#f8fbf4);position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:10px}
+.visual img{width:100%;height:100%;max-height:200px;object-fit:cover;border-radius:12px}
+.placeholder{width:100%;min-height:120px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;color:var(--green)}
+.placeholder[hidden]{display:none}
+.sym{width:42px;height:42px;stroke-width:1.5}
+.placeholder small{font-size:9px;letter-spacing:1.5px;font-weight:700;color:var(--muted)}
+.tag{position:absolute;top:8px;left:8px;background:#fff;color:var(--green-dark);border:1px solid var(--line);border-radius:20px;padding:3px 8px;font-size:9px;font-weight:700;letter-spacing:.8px;z-index:1}
+.details{padding:13px 12px 12px;display:flex;flex-direction:column;min-width:0}
+.name{font-size:15px;font-weight:800;line-height:1.25;margin-bottom:4px;overflow-wrap:anywhere}
+.description{font-size:11px;color:var(--muted);line-height:1.45;margin-bottom:8px}
+.price{font-size:19px;font-weight:800;color:var(--green-dark);line-height:1.15}
+.price small{font-size:11px;color:var(--muted);font-weight:600}
+.metrics{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:10px 0 11px}
+.metric{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:6px 8px;min-width:0}
+.metric span{display:block;color:var(--muted);font-size:9.5px}
+.metric b{display:block;font-size:11px;margin-top:2px;overflow-wrap:anywhere}
+.buy{width:100%;height:40px;border:0;border-radius:12px;background:linear-gradient(135deg,var(--green-dark),var(--green));color:#fff;font-size:13px;font-weight:700;font-family:inherit;cursor:pointer;margin-top:auto;display:flex;align-items:center;justify-content:center;gap:7px;box-shadow:0 8px 16px rgba(47,107,20,.25)}
+.buy .i{width:17px;height:17px}
+.buy:disabled{background:#e3e9dd;color:#8c9985;box-shadow:none;cursor:not-allowed}
+.buy:active:not(:disabled){transform:scale(.985)}
+
+.state{padding:30px 18px;text-align:center;background:#fff;border:1px solid var(--line);border-radius:20px;color:var(--muted);box-shadow:0 10px 26px rgba(47,107,20,.08)}
+.state .big{width:34px;height:34px;color:var(--green);margin:0 auto 10px;display:block;stroke-width:1.6}
+.state b{display:block;color:var(--ink);font-size:14px;margin-bottom:5px}
+.state p{font-size:12px;line-height:1.5}
+
+.bottom{position:fixed;z-index:10;bottom:max(10px,env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);width:min(calc(100% - 24px),396px);display:grid;grid-template-columns:repeat(4,1fr);gap:4px;background:rgba(255,255,255,.96);border:1px solid var(--line);border-radius:20px;padding:6px;box-shadow:0 10px 30px rgba(47,107,20,.18);backdrop-filter:blur(12px)}
+.nav{height:54px;border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:var(--muted);font-size:11px;font-weight:600}
+.nav.active{background:linear-gradient(135deg,var(--green-dark),var(--green));color:#fff}
+
+.overlay{position:fixed;inset:0;z-index:30;background:rgba(20,32,15,.6);display:none;align-items:center;justify-content:center;padding:16px}
+.overlay.show{display:flex}
+.dialog{width:min(100%,380px);background:#fff;border-radius:22px;padding:20px;box-shadow:0 25px 80px rgba(0,0,0,.35)}
+.dialog h2{font-size:18px;margin-bottom:8px}
+.dialog p{font-size:13px;color:var(--muted);line-height:1.55;margin-bottom:16px}
+.dialog-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.dialog button{height:44px;border-radius:12px;border:0;font-weight:700;font-size:13px;font-family:inherit;cursor:pointer}
+.cancel{background:#eef3e8;color:var(--ink)}
+.confirm{background:linear-gradient(135deg,var(--green-dark),var(--green));color:#fff}
+.confirm:disabled{opacity:.6;cursor:wait}
+.toast{position:fixed;z-index:40;left:50%;bottom:88px;transform:translateX(-50%);background:#1d2a17;color:#fff;padding:10px 16px;border-radius:14px;font-size:12px;display:none;max-width:90%;text-align:center}
+@media(max-width:365px){.product{grid-template-columns:32% 1fr}.details{padding:11px 10px}.name{font-size:14px}.price{font-size:17px}}
+</style>
+</head>
+<body>
+<main class="app">
+ <header class="top">
+  <div class="logo-circle"><img src="/logo.png" alt="Logo CARGIL"></div>
+  <div><div class="eyebrow">ESPACE MEMBRE</div><h1>Nos forfaits</h1></div>
+ </header>
+ <p class="intro">Choisissez une catégorie pour découvrir les forfaits disponibles et leurs caractéristiques.</p>
+ <div class="tabs" role="tablist" aria-label="Catégories de forfaits">
+  <button class="tab active" id="autoTab" type="button" role="tab" aria-selected="true">AUTO <small id="autoCount">—</small></button>
+  <button class="tab" id="stableTab" type="button" role="tab" aria-selected="false">STABLE <small id="stableCount">—</small></button>
+ </div>
+ <div class="summary"><span id="categoryLabel">FORFAITS AUTO</span><b id="productCount">Chargement…</b></div>
+ <section class="products" id="productList" aria-live="polite">
+  <div class="state"><svg class="i big" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 109 9"/></svg><b>Chargement des forfaits</b><p>Veuillez patienter…</p></div>
+ </section>
+ <nav class="bottom" aria-label="Navigation principale">
+  <a class="nav" href="/accueil.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-8 9 8M5 10v10h14V10"/></svg><span>Accueil</span></a>
+  <a class="nav active" href="/forfaits.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/></svg><span>Forfaits</span></a>
+  <a class="nav" href="/reseau.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 20v-1a4 4 0 00-4-4H7a4 4 0 00-4 4v1"/><circle cx="9.5" cy="7" r="4"/><path d="M21 20v-1a4 4 0 00-3-3.9M16 3.1a4 4 0 010 7.8"/></svg><span>Réseau</span></a>
+  <a class="nav" href="/compte.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 21v-1a5 5 0 00-5-5H9a5 5 0 00-5 5v1"/><circle cx="12" cy="7" r="4"/></svg><span>Compte</span></a>
+ </nav>
+</main>
+<div class="overlay" id="confirmBox" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
+ <div class="dialog"><h2 id="confirmTitle">Confirmer l'achat</h2><p id="confirmText">Voulez-vous acheter ce forfait ?</p><div class="dialog-actions"><button class="cancel" id="cancelBuy" type="button">Annuler</button><button class="confirm" id="confirmBuy" type="button">Confirmer</button></div></div>
+</div>
+<div class="toast" id="toast" role="status"></div>
+<script>
+
+const API_URL='https://qixliwrgscpdjplvglvq.supabase.co/functions/v1/cargil-api';
+const TOKEN_KEY='cargil_session_token';
+const token=localStorage.getItem(TOKEN_KEY);
+if(!token)location.replace('/connexion.html');
+const ICON_AUTO='<svg class="i sym" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 00-14.9-3M4 5v4h4M4 13a8 8 0 0014.9 3M20 19v-4h-4"/></svg>';
+const ICON_STABLE='<svg class="i sym" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z"/></svg>';
+const ICON_CART='<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h2l2.4 11h10.2L20 7H6.2"/><circle cx="9" cy="19" r="1.3"/><circle cx="17" cy="19" r="1.3"/></svg>';
+const ICON_EMPTY='<svg class="i big" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/></svg>';
+const ICON_ERR='<svg class="i big" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16.5v.01"/></svg>';
+let allProducts=[],currentCategory='AUTO',selectedProduct=null,buying=false;
+const $=id=>document.getElementById(id);
+function money(v){const n=Number(v||0);return Number.isFinite(n)?Math.round(n).toLocaleString('fr-FR'):'0'}
+function toast(msg){const t=$('toast');t.textContent=msg;t.style.display='block';clearTimeout(window._toastTimer);window._toastTimer=setTimeout(()=>t.style.display='none',3500)}
+function safe(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function categoryOf(p){return String(p.categorie||'').trim().toUpperCase()}
+function isActive(p){return p.actif===true}
+function switchCategory(cat){
+ currentCategory=cat;
+ $('autoTab').classList.toggle('active',cat==='AUTO');$('stableTab').classList.toggle('active',cat==='STABLE');
+ $('autoTab').setAttribute('aria-selected',String(cat==='AUTO'));$('stableTab').setAttribute('aria-selected',String(cat==='STABLE'));
+ render();
+}
+$('autoTab').addEventListener('click',()=>switchCategory('AUTO'));
+$('stableTab').addEventListener('click',()=>switchCategory('STABLE'));
+function imageMarkup(p){
+ const src=String(p.image_path||'').trim();
+ if(/^https?:\/\//i.test(src))return `<img src="${safe(src)}" alt="${safe(p.nom||'Image du forfait')}" loading="lazy" onerror="this.remove();this.parentElement.querySelector('.placeholder').hidden=false">`;
+ return '';
+}
+function card(p){
+ const image=imageMarkup(p);
+ const cycle=Number(p.cycle_jours||0),daily=Number(p.revenu_quotidien||0),total=Number(p.revenu_total||0);
+ const desc=p.description?`<p class="description">${safe(p.description)}</p>`:'';
+ const status=isActive(p);
+ const icon=categoryOf(p)==='STABLE'?ICON_STABLE:ICON_AUTO;
+ return `<article class="product">
+  <div class="visual"><span class="tag">${safe(categoryOf(p))}</span>${image}<div class="placeholder" ${image?'hidden':''}>${icon}<small>CARGIL</small></div></div>
+  <div class="details"><h2 class="name">${safe(p.nom||'Forfait')}</h2>${desc}
+   <div class="price">${money(p.prix)} <small>FCFA</small></div>
+   <div class="metrics"><div class="metric"><span>Durée</span><b>${cycle} jour${cycle>1?'s':''}</b></div><div class="metric"><span>Revenu / jour</span><b>${money(daily)} FCFA</b></div><div class="metric"><span>Revenu total</span><b>${money(total)} FCFA</b></div><div class="metric"><span>Disponibilité</span><b>${status?'Disponible':'Indisponible'}</b></div></div>
+   <button class="buy" type="button" data-buy="${safe(p.id)}" ${status?'':'disabled'}>${status?ICON_CART+'<span>Acheter</span>':'Indisponible'}</button>
+  </div></article>`;
+}
+function render(){
+ const list=allProducts.filter(p=>categoryOf(p)===currentCategory);
+ $('categoryLabel').textContent='FORFAITS '+currentCategory;
+ $('productCount').textContent=list.length+' produit'+(list.length>1?'s':'');
+ $('autoCount').textContent=allProducts.filter(p=>categoryOf(p)==='AUTO').length;
+ $('stableCount').textContent=allProducts.filter(p=>categoryOf(p)==='STABLE').length;
+ if(!list.length){$('productList').innerHTML=`<div class="state">${ICON_EMPTY}<b>Aucun forfait ${currentCategory} disponible</b><p>Les forfaits de cette catégorie apparaîtront ici dès qu'ils seront ajoutés et activés.</p></div>`;return}
+ $('productList').innerHTML=list.map(card).join('');
+ $('productList').querySelectorAll('[data-buy]').forEach(btn=>btn.addEventListener('click',()=>askBuy(btn.dataset.buy)));
+}
+async function loadProducts(){
+ try{
+  const r=await fetch(API_URL,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},body:JSON.stringify({action:'products'})});
+  const d=await r.json();
+  if(r.status===401){localStorage.removeItem(TOKEN_KEY);localStorage.removeItem('cargil_user');location.replace('/connexion.html');return}
+  if(!r.ok||d.success===false)throw new Error(d.error||'Chargement impossible');
+  allProducts=Array.isArray(d.produits)?d.produits:[];
+  render();
+ }catch(e){console.error(e);$('productList').innerHTML='<div class="state">'+ICON_ERR+'<b>Impossible de charger les forfaits</b><p>Vérifiez votre connexion puis rechargez la page.</p></div>';toast('Erreur de chargement des forfaits.')}
+}
+function askBuy(id){
+ selectedProduct=allProducts.find(p=>String(p.id)===String(id));
+ if(!selectedProduct||!isActive(selectedProduct))return;
+ $('confirmText').textContent=`Confirmez-vous l'achat de « ${selectedProduct.nom} » au prix de ${money(selectedProduct.prix)} FCFA ? Le montant sera débité de votre solde si votre achat est accepté.`;
+ $('confirmBox').classList.add('show');
+}
+function closeDialog(){$('confirmBox').classList.remove('show');selectedProduct=null}
+$('cancelBuy').addEventListener('click',closeDialog);
+$('confirmBox').addEventListener('click',e=>{if(e.target===$('confirmBox')&&!buying)closeDialog()});
+$('confirmBuy').addEventListener('click',async()=>{
+ if(!selectedProduct||buying)return;
+ buying=true;$('confirmBuy').disabled=true;$('confirmBuy').textContent='Traitement…';
+ try{
+  const r=await fetch(API_URL,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},body:JSON.stringify({action:'buy',produit_id:selectedProduct.id})});
+  const d=await r.json();
+  if(r.status===401){localStorage.removeItem(TOKEN_KEY);localStorage.removeItem('cargil_user');location.replace('/connexion.html');return}
+  if(!r.ok||d.success===false)throw new Error(d.error||'ACHAT_IMPOSSIBLE');
+  closeDialog();toast('Achat effectué avec succès !');await loadProducts();
+ }catch(e){
+  const messages={
+   SOLDE_INSUFFISANT:'Votre solde est insuffisant pour acheter ce forfait.',
+   PRODUIT_AUTO_REQUIS:'Vous devez d’abord acheter un forfait AUTO.',
+   HORS_HORAIRE:'Ce forfait est actuellement fermé.',
+   QUOTA_JOURNALIER_ATTEINT:'Le quota de vente de ce forfait est atteint pour aujourd’hui.',
+   PRODUIT_INDISPONIBLE:'Ce forfait n’est plus disponible.',
+   ACHAT_IMPOSSIBLE:'L’achat n’a pas pu être effectué. Réessayez.'
+  };
+  toast(messages[e.message]||messages.ACHAT_IMPOSSIBLE);
+ }finally{buying=false;$('confirmBuy').disabled=false;$('confirmBuy').textContent='Confirmer'}
+});
+loadProducts();
+</script>
+</body>
+</html>
