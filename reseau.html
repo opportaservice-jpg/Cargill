@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#4c9a2a">
+<title>CARGIL — Mon réseau</title>
+<link rel="icon" href="/logo.png">
+<style>
+:root{--gd:#2f6b14;--g:#4c9a2a;--gl:#8cc63f;--ink:#1d2a17;--muted:#6b7a63;--line:#d9e4d0;--soft:#f8fbf4}
+*{box-sizing:border-box;margin:0;padding:0}html,body{min-height:100%}body{min-height:100vh;min-height:100dvh;background:radial-gradient(circle at 12% 5%,rgba(140,198,63,.32),transparent 42%),radial-gradient(circle at 92% 88%,rgba(76,154,42,.25),transparent 48%),#eef5e6;background-attachment:fixed;color:var(--ink);font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif;-webkit-font-smoothing:antialiased;display:flex;justify-content:center}
+.i{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:0 0 auto}.app{width:100%;max-width:420px;padding:18px 16px 105px}.top{display:flex;align-items:center;gap:12px;margin-bottom:15px}.logo{width:50px;height:50px;flex:0 0 50px;border-radius:50%;overflow:hidden;background:#fff;box-shadow:0 0 0 4px rgba(76,154,42,.14),0 8px 18px rgba(47,107,20,.2)}.logo img{width:100%;height:100%;object-fit:cover}.eyebrow{font-size:10px;font-weight:800;letter-spacing:1.5px;color:var(--g)}h1{font-size:21px;font-weight:850;color:var(--gd);margin-top:2px}.intro{font-size:12px;color:var(--muted);line-height:1.5;margin:0 3px 14px}
+.invite{background:linear-gradient(135deg,#24590e,#4c9a2a 65%,#78b83a);color:#fff;border-radius:21px;padding:17px;box-shadow:0 12px 25px rgba(47,107,20,.22);margin-bottom:14px;overflow:hidden;position:relative}.invite:after{content:"";position:absolute;width:150px;height:150px;border:1px solid rgba(255,255,255,.13);border-radius:50%;right:-65px;top:-70px;box-shadow:0 0 0 18px rgba(255,255,255,.05),0 0 0 38px rgba(255,255,255,.035)}.invite-head{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:800;position:relative;z-index:1}.invite-head .i{width:20px;height:20px}.invite p{font-size:11px;line-height:1.45;color:rgba(255,255,255,.85);margin:7px 0 12px;position:relative;z-index:1}.linkbox{display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);border-radius:12px;padding:7px;position:relative;z-index:1}.linktext{min-width:0;flex:1;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#fff}.copy{height:36px;flex:0 0 auto;border:0;border-radius:9px;padding:0 11px;background:#fff;color:var(--gd);font-family:inherit;font-size:11px;font-weight:800;display:flex;align-items:center;gap:5px;cursor:pointer}.copy .i{width:15px;height:15px}.refcode{font-size:10px;color:rgba(255,255,255,.85);margin-top:9px;position:relative;z-index:1}.refcode b{color:#fff;letter-spacing:1px}
+.total-card{background:#fff;border:1px solid var(--line);border-radius:17px;padding:14px 15px;box-shadow:0 8px 20px rgba(47,107,20,.07);margin-bottom:13px;display:flex;align-items:center;justify-content:space-between;gap:10px}.total-label{font-size:11px;color:var(--muted);font-weight:700}.total-value{font-size:22px;color:var(--gd);font-weight:900;margin-top:3px}.total-value small{font-size:11px;color:var(--muted)}.total-icon{width:43px;height:43px;border-radius:14px;background:#eaf4df;color:var(--g);display:grid;place-items:center}.total-icon .i{width:23px;height:23px}
+.section-title{display:flex;align-items:center;justify-content:space-between;margin:17px 3px 9px}.section-title h2{font-size:14px;color:var(--ink);font-weight:850}.section-title span{font-size:10px;color:var(--muted)}.levels{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.level{background:#fff;border:1px solid var(--line);border-radius:16px;padding:12px 10px;box-shadow:0 7px 17px rgba(47,107,20,.06);min-width:0}.level-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px}.level-name{font-size:13px;font-weight:900;color:var(--gd)}.level-dot{width:8px;height:8px;border-radius:50%;background:var(--gl)}.level-num{font-size:22px;font-weight:900;line-height:1;color:var(--ink)}.level-caption{font-size:9px;color:var(--muted);margin-top:3px}.level-line{height:1px;background:#edf2e8;margin:9px 0}.level-stat{display:flex;justify-content:space-between;gap:3px;font-size:9px;color:var(--muted);margin-top:6px}.level-stat b{font-size:10px;color:var(--ink);text-align:right}.level-commission{font-size:12px;color:var(--gd);font-weight:900;margin-top:4px;white-space:nowrap}.level-commission small{font-size:9px;color:var(--muted);font-weight:600}
+.rates{background:#fff;border:1px solid var(--line);border-radius:17px;padding:13px 14px;margin-top:13px;box-shadow:0 7px 17px rgba(47,107,20,.06)}.rates h3{font-size:12px;font-weight:850;margin-bottom:9px}.rate-row{display:flex;align-items:center;justify-content:space-between;padding:7px 0;border-top:1px solid #edf2e8;font-size:10px;color:var(--muted)}.rate-row b{color:var(--ink);font-size:11px}.rate-total{display:flex;justify-content:space-between;align-items:center;background:#f2f8eb;border-radius:10px;padding:9px 10px;margin-top:6px;font-size:10px;color:var(--gd);font-weight:800}.rate-total b{font-size:13px}
+.people-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:13px;box-shadow:0 8px 20px rgba(47,107,20,.07)}.people-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;background:#f0f5e9;border:1px solid var(--line);border-radius:12px;padding:4px;margin-bottom:11px}.ptab{height:36px;border:0;border-radius:9px;background:transparent;color:var(--muted);font-family:inherit;font-size:12px;font-weight:800;cursor:pointer}.ptab.active{background:linear-gradient(135deg,var(--gd),var(--g));color:#fff;box-shadow:0 4px 10px rgba(47,107,20,.18)}.people-head{display:flex;justify-content:space-between;align-items:center;font-size:10px;color:var(--muted);margin:0 2px 8px}.people-head b{color:var(--ink);font-size:11px}.person{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:11px 3px;border-top:1px solid #edf2e8}.person-main{min-width:0}.phone{font-size:12px;font-weight:800;letter-spacing:.3px;color:var(--ink)}.joined{font-size:9px;color:var(--muted);margin-top:3px}.invested{font-size:9px;font-weight:800;padding:5px 7px;border-radius:20px;white-space:nowrap;background:#eaf4df;color:var(--gd)}.not-invested{background:#f2f3ef;color:#7a8374}.empty{text-align:center;padding:24px 12px;color:var(--muted);font-size:11px;line-height:1.5}.empty .i{display:block;width:27px;height:27px;margin:0 auto 8px;color:var(--g)}.loading{padding:26px 12px;text-align:center;color:var(--muted);font-size:11px}.error{background:#fff;border:1px solid #f0d4c8;color:#a84c24;border-radius:15px;padding:15px;font-size:11px;line-height:1.5;text-align:center}
+.bottom{position:fixed;z-index:10;bottom:max(10px,env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);width:min(calc(100% - 24px),396px);display:grid;grid-template-columns:repeat(4,1fr);gap:4px;background:rgba(255,255,255,.96);border:1px solid var(--line);border-radius:20px;padding:6px;box-shadow:0 10px 30px rgba(47,107,20,.18);backdrop-filter:blur(12px)}.nav{height:53px;border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:var(--muted);font-size:10px;font-weight:650;text-decoration:none}.nav.active{background:linear-gradient(135deg,var(--gd),var(--g));color:#fff}.toast{position:fixed;z-index:30;left:50%;bottom:88px;transform:translateX(-50%);display:none;background:#1d2a17;color:#fff;padding:10px 15px;border-radius:12px;font-size:11px;max-width:90%;text-align:center}
+@media(max-width:360px){.app{padding-left:12px;padding-right:12px}.level{padding:10px 8px}.level-commission{font-size:11px}.level-stat{font-size:8px}.level-stat b{font-size:9px}}
+</style>
+</head>
+<body>
+<main class="app">
+ <header class="top"><div class="logo"><img src="/logo.png" alt="CARGIL"></div><div><div class="eyebrow">ESPACE MEMBRE</div><h1>Mon réseau</h1></div></header>
+ <p class="intro">Invitez vos proches, suivez leur progression et consultez vos commissions à chaque niveau.</p>
+ <section class="invite">
+  <div class="invite-head"><svg class="i" viewBox="0 0 24 24"><path d="M16 8a3 3 0 11-6 0 3 3 0 016 0zM4 20a5 5 0 0110 0M18 8v6m-3-3h6"/></svg>Votre lien d’invitation</div>
+  <p>Partagez ce lien avec vos proches pour les inviter à rejoindre CARGIL.</p>
+  <div class="linkbox"><div class="linktext" id="inviteLink">Chargement du lien…</div><button class="copy" id="copyBtn" type="button"><svg class="i" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a2 2 0 00-2-2H5a2 2 0 00-2 2v9a2 2 0 002 2h3"/></svg>Copier</button></div>
+  <div class="refcode">Votre code : <b id="refCode">—</b></div>
+ </section>
+ <section class="total-card"><div><div class="total-label">COMMISSIONS TOTALES REÇUES</div><div class="total-value" id="totalCommission">— <small>FCFA</small></div></div><div class="total-icon"><svg class="i" viewBox="0 0 24 24"><path d="M12 2v20m5-15H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div></section>
+ <div class="section-title"><h2>Vos statistiques par niveau</h2><span>Votre réseau</span></div>
+ <section class="levels" id="levels"><div class="loading">Chargement des statistiques…</div></section>
+ <section class="rates"><h3>Commissions sur un investissement de 3 000 FCFA</h3><div id="rateRows"><div class="loading">Calcul…</div></div></section>
+ <div class="section-title"><h2>Les personnes de votre réseau</h2><span>Numéros masqués</span></div>
+ <section class="people-card">
+  <div class="people-tabs" role="tablist" aria-label="Niveaux du réseau">
+   <button class="ptab active" type="button" data-level="1" role="tab" aria-selected="true">L1</button>
+   <button class="ptab" type="button" data-level="2" role="tab" aria-selected="false">L2</button>
+   <button class="ptab" type="button" data-level="3" role="tab" aria-selected="false">L3</button>
+  </div>
+  <div class="people-head"><span id="peopleTitle">Personnes du niveau 1</span><b id="peopleCount">— personne</b></div>
+  <div id="peopleList"><div class="loading">Chargement de votre réseau…</div></div>
+ </section>
+ <nav class="bottom" aria-label="Navigation principale">
+  <a class="nav" href="/accueil.html"><svg class="i" viewBox="0 0 24 24"><path d="M3 11l9-8 9 8M5 10v10h14V10"/></svg><span>Accueil</span></a>
+  <a class="nav" href="/forfaits.html"><svg class="i" viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5 9-5zM3 13l9 5 9-5"/></svg><span>Forfaits</span></a>
+  <a class="nav active" href="/reseau.html"><svg class="i" viewBox="0 0 24 24"><path d="M16 20v-1a4 4 0 00-4-4H7a4 4 0 00-4 4v1"/><circle cx="9.5" cy="7" r="4"/><path d="M21 20v-1a4 4 0 00-3-3.9M16 3.1a4 4 0 010 7.8"/></svg><span>Réseau</span></a>
+  <a class="nav" href="/compte.html"><svg class="i" viewBox="0 0 24 24"><path d="M20 21v-1a5 5 0 00-5-5H9a5 5 0 00-5 5v1"/><circle cx="12" cy="7" r="4"/></svg><span>Compte</span></a>
+ </nav>
+</main>
+<div class="toast" id="toast" role="status"></div>
+<script>
+const API_URL='https://qixliwrgscpdjplvglvq.supabase.co/functions/v1/cargil-api';
+const token=localStorage.getItem('cargil_session_token');
+if(!token)location.replace('/connexion.html');
+const $=id=>document.getElementById(id);
+let networkData=null,activeLevel=1;
+function safe(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function money(v){return Math.round(Number(v||0)).toLocaleString('fr-FR')}
+function toast(s){const t=$('toast');t.textContent=s;t.style.display='block';clearTimeout(window._toastTimer);window._toastTimer=setTimeout(()=>t.style.display='none',2800)}
+function levelData(n){return (networkData?.niveaux||[]).find(x=>Number(x.niveau)===n)||{niveau:n,invites:0,investisseurs:0,commission:0,personnes:[]}}
+function renderLevels(){
+ const levels=[1,2,3].map(levelData);
+ $('levels').innerHTML=levels.map(x=>`<article class="level"><div class="level-top"><span class="level-name">NIVEAU ${x.niveau}</span><i class="level-dot"></i></div><div class="level-num">${money(x.invites)}</div><div class="level-caption">personne${Number(x.invites)>1?'s':''} invitée${Number(x.invites)>1?'s':''}</div><div class="level-line"></div><div class="level-stat"><span>Ont investi</span><b>${money(x.investisseurs)}</b></div><div class="level-stat"><span>Commission</span><b>${money(x.commission)} F</b></div></article>`).join('');
+}
+function renderRates(){
+ const rows=Array.isArray(networkData?.commissions_sur_3000)?networkData.commissions_sur_3000:[];
+ if(!rows.length){$('rateRows').innerHTML='<div class="empty">Les taux de commission ne sont pas disponibles.</div>';return}
+ const total=rows.reduce((s,x)=>s+Number(x.montant||0),0);
+ $('rateRows').innerHTML=rows.map(x=>`<div class="rate-row"><span>Niveau ${Number(x.niveau)} · ${money(x.taux)} %</span><b>${money(x.montant)} FCFA</b></div>`).join('')+`<div class="rate-total"><span>Total des trois niveaux</span><b>${money(total)} FCFA</b></div>`;
+}
+function renderPeople(){
+ const d=levelData(activeLevel),people=Array.isArray(d.personnes)?d.personnes:[];
+ $('peopleTitle').textContent='Personnes du niveau '+activeLevel;
+ $('peopleCount').textContent=people.length+' personne'+(people.length>1?'s':'');
+ if(!people.length){$('peopleList').innerHTML='<div class="empty"><svg class="i" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0113 0M17 8a3 3 0 010 6m1.5 2a5 5 0 013 4"/></svg>Aucune personne dans ce niveau pour le moment.</div>';return}
+ $('peopleList').innerHTML=people.map(p=>`<div class="person"><div class="person-main"><div class="phone">${safe(p.telephone||'••••')}</div><div class="joined">Inscrit${p.created_at?' le '+new Date(p.created_at).toLocaleDateString('fr-FR'):''}</div></div><span class="invested ${p.investi?'':'not-invested'}">${p.investi?'A investi':'Pas encore investi'}</span></div>`).join('');
+}
+function selectLevel(n){activeLevel=n;document.querySelectorAll('.ptab').forEach(b=>{const on=Number(b.dataset.level)===n;b.classList.toggle('active',on);b.setAttribute('aria-selected',String(on))});renderPeople()}
+document.querySelectorAll('.ptab').forEach(b=>b.addEventListener('click',()=>selectLevel(Number(b.dataset.level))));
+$('copyBtn').addEventListener('click',async()=>{const link=networkData?.lien_invitation;if(!link)return toast('Le lien n’est pas encore disponible.');try{if(navigator.clipboard&&window.isSecureContext)await navigator.clipboard.writeText(link);else{const t=document.createElement('textarea');t.value=link;t.style.position='fixed';t.style.opacity='0';document.body.appendChild(t);t.select();const ok=document.execCommand('copy');t.remove();if(!ok)throw new Error('copy')}toast('Lien d’invitation copié !')}catch{toast('Copie impossible. Maintenez le lien pour le copier.')}});
+async function loadNetwork(){
+ try{
+  const r=await fetch(API_URL,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},body:JSON.stringify({action:'network'})});
+  const d=await r.json();
+  if(r.status===401){localStorage.removeItem('cargil_session_token');localStorage.removeItem('cargil_user');location.replace('/connexion.html');return}
+  if(!r.ok||d.success===false)throw new Error(d.error||'NETWORK_ERROR');
+  networkData=d;
+  $('inviteLink').textContent=d.lien_invitation||'Lien indisponible';$('refCode').textContent=d.code_parrainage||'—';
+  $('totalCommission').innerHTML=money(d.commission_totale)+' <small>FCFA</small>';
+  renderLevels();renderRates();renderPeople();
+ }catch(e){console.error(e);$('levels').innerHTML='<div class="error" style="grid-column:1/-1">Impossible de charger les données de votre réseau. Vérifiez votre connexion puis rechargez la page.</div>';$('peopleList').innerHTML='<div class="empty">Données momentanément indisponibles.</div>';$('inviteLink').textContent='Lien momentanément indisponible';$('rateRows').innerHTML='<div class="empty">Calcul momentanément indisponible.</div>'}
+}
+loadNetwork();
+</script>
+</body>
+</html>
