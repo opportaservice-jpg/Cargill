@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#4c9a2a">
+<title>CARGIL — Accueil</title>
+<link rel="icon" href="/logo.png">
+<style>
+:root{--green-dark:#2f6b14;--green:#4c9a2a;--green-light:#8cc63f;--ink:#1d2a17;--muted:#6b7a63;--line:#d9e4d0;--soft:#f8fbf4}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{min-height:100%}
+body{min-height:100vh;min-height:100dvh;background:radial-gradient(circle at 15% 10%,rgba(140,198,63,.35),transparent 45%),radial-gradient(circle at 90% 90%,rgba(76,154,42,.30),transparent 50%),#eef5e6;background-attachment:fixed;color:var(--ink);font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif;-webkit-font-smoothing:antialiased;display:flex;justify-content:center}
+.i{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:0 0 auto}
+a{color:inherit;text-decoration:none}
+.app{width:100%;max-width:420px;padding:18px 16px 100px}
+
+/* En-tête */
+.top{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.logo-circle{width:52px;height:52px;flex:0 0 52px;border-radius:50%;overflow:hidden;background:#fff;box-shadow:0 0 0 4px rgba(76,154,42,.15),0 8px 18px rgba(47,107,20,.25);display:flex;align-items:center;justify-content:center}
+.logo-circle img{width:100%;height:100%;object-fit:cover;display:block}
+.greeting{font-size:12px;font-weight:600;color:var(--muted)}
+.phone{font-size:16px;font-weight:700;color:var(--green-dark);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* Carte solde */
+.balance{background:linear-gradient(135deg,var(--green-dark),var(--green));color:#fff;border-radius:22px;padding:20px 18px 18px;box-shadow:0 18px 40px rgba(47,107,20,.28);position:relative;overflow:hidden}
+.balance:after{content:"";position:absolute;right:-30px;top:-30px;width:130px;height:130px;border-radius:50%;background:rgba(255,255,255,.08)}
+.cardtop{display:flex;align-items:center;justify-content:space-between;gap:8px;position:relative;z-index:1}
+.pass{font-size:11px;font-weight:700;letter-spacing:1.5px;color:#dbeccb}
+.pill{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.25);border-radius:20px;padding:4px 10px;font-size:11px;font-weight:600;white-space:nowrap}
+.balance-label{font-size:12px;color:#dbeccb;margin:18px 0 2px;position:relative;z-index:1}
+.amount-row{display:flex;align-items:baseline;gap:6px;position:relative;z-index:1}
+.amount{font-size:32px;line-height:1.15;font-weight:800;letter-spacing:-.5px}
+.currency{font-size:14px;font-weight:600;color:#dbeccb}
+.stats{display:grid;grid-template-columns:1fr 1fr;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);border-radius:14px;margin:16px 0 14px;position:relative;z-index:1;overflow:hidden}
+.stat{padding:10px 12px}.stat+.stat{border-left:1px solid rgba(255,255,255,.18)}
+.stat small{display:block;font-size:11px;color:#dbeccb}.stat b{display:block;font-size:14px;font-weight:700;margin-top:2px}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;position:relative;z-index:1}
+.action{height:46px;border-radius:14px;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px;transition:transform .1s}
+.action:active{transform:scale(.98)}
+.action.primary{background:#fff;color:var(--green-dark)}
+.action.secondary{background:rgba(255,255,255,.14);color:#fff;border:1.5px solid rgba(255,255,255,.4)}
+
+/* Raccourcis */
+.section-label{font-size:12px;font-weight:700;color:var(--muted);margin:20px 4px 8px;letter-spacing:.3px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tile{background:#fff;border:1px solid var(--line);border-radius:16px;padding:13px;display:flex;align-items:center;gap:11px;font-size:14px;font-weight:600;box-shadow:0 6px 18px rgba(47,107,20,.07);transition:border-color .2s}
+.tile:active{border-color:var(--green)}
+.tile .ico{width:38px;height:38px;flex:0 0 38px;border-radius:12px;background:#eaf4df;color:var(--green-dark);display:grid;place-items:center}
+.tile .chev{margin-left:auto;width:16px;height:16px;color:#9aa793}
+
+/* Carte info */
+.info-card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:18px 16px;margin-top:20px;box-shadow:0 12px 30px rgba(47,107,20,.10)}
+.eyebrow{color:var(--green);font-size:11px;font-weight:700;letter-spacing:1.5px}
+.info-card h2{font-size:16px;line-height:1.3;margin:6px 0}
+.info-card p{font-size:12.5px;color:var(--muted);line-height:1.55}
+.info-row{display:flex;gap:10px;margin-top:14px}
+.info-chip{flex:1;background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:10px 12px;font-size:11px;color:var(--muted)}
+.info-chip b{display:block;font-size:15px;color:var(--ink);margin-top:3px}
+
+/* Navigation */
+.bottom{position:fixed;z-index:10;bottom:max(10px,env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);width:min(calc(100% - 24px),396px);display:grid;grid-template-columns:repeat(4,1fr);gap:4px;background:rgba(255,255,255,.96);border:1px solid var(--line);border-radius:20px;padding:6px;box-shadow:0 10px 30px rgba(47,107,20,.18);backdrop-filter:blur(12px)}
+.nav{height:54px;border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:var(--muted);font-size:11px;font-weight:600}
+.nav.active{background:linear-gradient(135deg,var(--green-dark),var(--green));color:#fff}
+
+/* Toast */
+.toast{position:fixed;z-index:30;left:50%;bottom:88px;transform:translateX(-50%);background:#1d2a17;color:#fff;padding:10px 16px;border-radius:14px;font-size:12px;display:none;max-width:90%}
+
+/* Fenêtre de bienvenue */
+.modal-backdrop{position:fixed;inset:0;z-index:50;background:rgba(20,32,15,.6);display:none;align-items:center;justify-content:center;padding:16px}
+.modal-backdrop.show{display:flex}
+.modal{width:min(100%,400px);max-height:min(86vh,700px);background:#fff;border-radius:22px;box-shadow:0 25px 80px rgba(0,0,0,.35);display:flex;flex-direction:column;overflow:hidden}
+.modal-head{padding:18px 18px 14px;background:linear-gradient(135deg,var(--green-dark),var(--green));color:#fff;position:relative}
+.modal-kicker{font-size:10px;letter-spacing:1.5px;color:#dbeccb;font-weight:700}
+.modal-head h2{font-size:18px;margin:6px 40px 4px 0;line-height:1.25}
+.modal-head p{font-size:12px;color:#e6f2da;line-height:1.5}
+.close{position:absolute;right:12px;top:12px;width:32px;height:32px;border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.14);color:#fff;border-radius:50%;display:grid;place-items:center;cursor:pointer}
+.close .i{width:16px;height:16px}
+.modal-scroll{overflow-y:auto;padding:16px;overscroll-behavior:contain}
+.modal-intro{font-size:12.5px;line-height:1.55;color:var(--muted);margin-bottom:12px}
+.rule-list{display:grid;gap:8px}
+.rule{display:flex;gap:11px;padding:11px;background:var(--soft);border:1px solid var(--line);border-radius:14px}
+.rule-icon{width:34px;height:34px;flex:0 0 34px;border-radius:10px;background:#eaf4df;color:var(--green-dark);display:grid;place-items:center}
+.rule-icon .i{width:18px;height:18px}
+.rule b{display:block;font-size:12.5px;margin:1px 0 3px}
+.rule span{display:block;color:var(--muted);font-size:11.5px;line-height:1.45}
+.channels{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:14px}
+.channel{display:flex;align-items:center;justify-content:center;gap:7px;height:44px;border-radius:12px;color:#fff;font-size:12px;font-weight:700}
+.channel .i{width:16px;height:16px}
+.wa{background:#1f9d55}.tg{background:#2489c7}
+.modal-foot{padding:12px 16px 16px;border-top:1px solid var(--line)}
+.continue{width:100%;height:46px;border:0;border-radius:14px;background:linear-gradient(135deg,var(--green-dark),var(--green));color:#fff;font-size:14px;font-weight:700;font-family:inherit;cursor:pointer;box-shadow:0 8px 18px rgba(47,107,20,.28)}
+</style>
+</head>
+<body>
+<main class="app">
+ <header class="top">
+  <div class="logo-circle"><img src="/logo.png" alt="Logo CARGIL"></div>
+  <div style="min-width:0"><div class="greeting" id="greeting">Bonjour</div><div class="phone" id="userPhone">Mon compte</div></div>
+ </header>
+
+ <section class="balance">
+  <div class="cardtop"><div class="pass">CARGIL · ESPACE MEMBRE</div><div class="pill"><span id="activeCount">0</span> forfaits actifs</div></div>
+  <div class="balance-label">Solde disponible</div>
+  <div class="amount-row"><span class="amount" id="balance">—</span><span class="currency">FCFA</span></div>
+  <div class="stats">
+   <div class="stat"><small>Crédité aujourd'hui</small><b id="todayCredit">—</b></div>
+   <div class="stat"><small>Total crédité</small><b id="totalCredit">—</b></div>
+  </div>
+  <div class="actions">
+   <a class="action primary" href="recharge.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 20h16"/></svg><span>Recharge</span></a>
+   <a class="action secondary" href="retrait.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17V5m0 0L8 9m4-4l4 4M4 20h16"/></svg><span>Retrait</span></a>
+  </div>
+ </section>
+
+ <div class="section-label">RACCOURCIS</div>
+ <section class="grid">
+  <a class="tile" href="buzz.html"><span class="ico"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10v4a1 1 0 001 1h2l5 4V5L6 9H4a1 1 0 00-1 1z"/><path d="M15 9a4 4 0 010 6M18 6.5a8 8 0 010 11"/></svg></span><span>Buzz</span><svg class="i chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
+  <a class="tile" href="suivi.html"><span class="ico"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V10m6 10V4m6 16v-7m4 7H2"/></svg></span><span>Suivi</span><svg class="i chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
+  <a class="tile" href="historique.html"><span class="ico"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><span>Historique</span><svg class="i chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
+  <a class="tile" href="forfaits.html"><span class="ico"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/></svg></span><span>Mes forfaits</span><svg class="i chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
+ </section>
+
+ <section class="info-card">
+  <div class="eyebrow">VOTRE ESPACE CARGIL</div>
+  <h2>Tout votre parcours, au même endroit.</h2>
+  <p>Consultez vos forfaits, suivez vos activités et retrouvez vos opérations depuis votre tableau de bord.</p>
+  <div class="info-row"><div class="info-chip">Forfaits actifs<b id="activeCount2">0</b></div><div class="info-chip">Compte membre<b id="memberStatus">Actif</b></div></div>
+ </section>
+
+ <nav class="bottom" aria-label="Navigation principale">
+  <a class="nav active" href="accueil.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-8 9 8M5 10v10h14V10"/></svg><span>Accueil</span></a>
+  <a class="nav" href="forfaits.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/></svg><span>Forfaits</span></a>
+  <a class="nav" href="reseau.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 20v-1a4 4 0 00-4-4H7a4 4 0 00-4 4v1"/><circle cx="9.5" cy="7" r="4"/><path d="M21 20v-1a4 4 0 00-3-3.9M16 3.1a4 4 0 010 7.8"/></svg><span>Réseau</span></a>
+  <a class="nav" href="compte.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 21v-1a5 5 0 00-5-5H9a5 5 0 00-5 5v1"/><circle cx="12" cy="7" r="4"/></svg><span>Compte</span></a>
+ </nav>
+</main>
+
+<div class="toast" id="toast" role="status"></div>
+
+<div class="modal-backdrop" id="welcomeModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+ <section class="modal">
+  <header class="modal-head">
+   <div class="modal-kicker">BIENVENUE CHEZ CARGIL</div>
+   <h2 id="modalTitle">Bienvenue dans votre communauté !</h2>
+   <p>Quelques informations utiles pour bien commencer.</p>
+   <button class="close" id="closeModal" type="button" aria-label="Fermer"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  </header>
+  <div class="modal-scroll">
+   <p class="modal-intro">CARGIL met à votre disposition un espace membre pour gérer vos recharges, vos forfaits, vos retraits et le suivi de vos activités. Voici les règles essentielles :</p>
+   <div class="rule-list">
+    <div class="rule"><div class="rule-icon"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/></svg></div><div><b>Dépôt minimum : 3 000 FCFA</b><span>Le montant minimum pour soumettre une demande de recharge est de 3 000 FCFA. La demande reste en attente jusqu'à sa validation.</span></div></div>
+    <div class="rule"><div class="rule-icon"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17V5m0 0L8 9m4-4l4 4M4 20h16"/></svg></div><div><b>Retrait minimum : 1 500 FCFA</b><span>Vous devez avoir acheté au moins un forfait avant de pouvoir demander un retrait.</span></div></div>
+    <div class="rule"><div class="rule-icon"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 5L5 19"/><circle cx="7" cy="7" r="2"/><circle cx="17" cy="17" r="2"/></svg></div><div><b>Frais de retrait : 18 %</b><span>Les frais sont inclus dans le montant demandé. Exemple : pour 10 000 FCFA demandés, 1 800 FCFA de frais sont déduits et 8 200 FCFA sont versés.</span></div></div>
+    <div class="rule"><div class="rule-icon"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><div><b>Horaires des retraits : 08 h à 18 h</b><span>Les demandes de retrait sont disponibles selon les horaires du Burkina Faso (Africa/Ouagadougou).</span></div></div>
+    <div class="rule"><div class="rule-icon"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V10m6 10V4m6 16v-7m4 7H2"/></svg></div><div><b>Suivez vos forfaits</b><span>Consultez la rubrique Forfaits et la page Suivi pour retrouver vos achats et l'évolution de vos activités.</span></div></div>
+    <div class="rule"><div class="rule-icon"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z"/></svg></div><div><b>Utilisez uniquement les canaux officiels</b><span>Rejoignez nos communautés officielles pour recevoir les annonces et informations de la plateforme.</span></div></div>
+   </div>
+   <div class="channels">
+    <a class="channel wa" href="https://whatsapp.com/channel/0029VbEN9Co23n3kX8qbWu2Net" target="_blank" rel="noopener"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a9 9 0 01-13.4 7.8L3 21l1.3-4.5A9 9 0 1121 12z"/></svg><span>WhatsApp</span></a>
+    <a class="channel tg" href="https://t.me/+ZDXS_mGt-3gxMDU0" target="_blank" rel="noopener"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 3L3 10.5l6.5 2.5L12 20l3-6.5L21 3z"/></svg><span>Telegram</span></a>
+   </div>
+  </div>
+  <footer class="modal-foot"><button class="continue" id="continueBtn" type="button">J'ai compris, continuer</button></footer>
+ </section>
+</div>
+<script>
+
+const API_URL='https://qixliwrgscpdjplvglvq.supabase.co/functions/v1/cargil-api';
+const SESSION_KEY='cargil_session_token',USER_KEY='cargil_user';
+const token=localStorage.getItem(SESSION_KEY);
+if(!token){location.replace('connexion.html')}
+const cached=(()=>{try{return JSON.parse(localStorage.getItem(USER_KEY)||'{}')}catch{return {}}})();
+const $=id=>document.getElementById(id);
+function money(v){const n=Number(v||0);return Number.isFinite(n)?Math.round(n).toLocaleString('fr-FR'):'0'}
+function setText(id,value){$(id).textContent=value}
+function showToast(msg){const t=$('toast');t.textContent=msg;t.style.display='block';setTimeout(()=>t.style.display='none',3200)}
+function openWelcome(){if(sessionStorage.getItem('cargil_welcome_seen')!=='1')$('welcomeModal').classList.add('show')}
+function closeWelcome(){ $('welcomeModal').classList.remove('show');sessionStorage.setItem('cargil_welcome_seen','1')}
+$('closeModal').addEventListener('click',closeWelcome);$('continueBtn').addEventListener('click',closeWelcome);
+$('welcomeModal').addEventListener('click',e=>{if(e.target===$('welcomeModal'))closeWelcome()});
+const now=new Date();
+const hour=now.getHours();setText('greeting',hour<12?'Bonjour':hour<18?'Bon après-midi':'Bonsoir');
+const phoneText=cached.telephone||cached.phone||'Mon compte';setText('userPhone',phoneText);
+async function loadDashboard(){
+ try{
+  const res=await fetch(API_URL,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},body:JSON.stringify({action:'dashboard'})});
+  const data=await res.json();
+  if(res.status===401||data.error==='SESSION_INVALIDE'){localStorage.removeItem(SESSION_KEY);localStorage.removeItem(USER_KEY);location.replace('connexion.html');return}
+  if(!res.ok||data.success===false)throw new Error(data.message||data.error||'Chargement impossible');
+  const d=data.dashboard||data.donnees||data;
+  const user=d.utilisateur||data.utilisateur||cached;
+  const wallet=d.portefeuille||d.wallet||d.solde||{};
+  const balance=wallet.solde_disponible??wallet.solde??wallet.balance??d.solde_disponible??d.solde??d.balance??0;
+  const today=wallet.credite_aujourdhui??wallet.credit_today??d.credite_aujourdhui??d.credit_today??0;
+  const total=wallet.total_credite??wallet.total_credit??d.total_credite??d.total_credit??balance;
+  const active=d.forfaits_actifs??d.active_products??d.nombre_forfaits_actifs??(Array.isArray(d.achats)?d.achats.filter(x=>x.statut==='actif'||x.status==='active').length:0);
+  setText('balance',money(balance));setText('todayCredit','+'+money(today)+' FCFA');setText('totalCredit',money(total)+' FCFA');setText('activeCount',money(active));setText('activeCount2',money(active));
+  if(user.telephone||user.phone)setText('userPhone',user.telephone||user.phone);
+  if(user.statut||user.status)setText('memberStatus',user.statut||user.status);
+  localStorage.setItem(USER_KEY,JSON.stringify(user));
+ }catch(err){console.warn('Dashboard:',err);setText('balance','—');showToast('Impossible de récupérer les données. Vérifiez votre connexion.')}
+}
+openWelcome();loadDashboard();
+</script>
+</body>
+</html>
