@@ -1,0 +1,871 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0c261d">
+<title>CARGILL — Accueil</title>
+
+<style>
+:root {
+  --green:#0c261d;
+  --green2:#164b36;
+  --accent:#4c9a2a;
+  --accent-light:#8cc63f;
+  --mint:#bde7d1;
+  --ink:#17221d;
+  --muted:#718078;
+  --line:#e8eee9;
+  --bg:#f5f8f5;
+  --white:#fff;
+  --gold:#d8c18a;
+}
+
+* { box-sizing:border-box; }
+
+body {
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
+  padding-bottom:100px;
+}
+
+button, input { font:inherit; }
+button { cursor:pointer; }
+.hidden { display:none !important; }
+
+.topbar {
+  height:76px;
+  padding:0 20px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  max-width:720px;
+  margin:auto;
+}
+
+.brand { display:flex; align-items:center; gap:11px; }
+
+.logo-wrap {
+  width:43px;
+  height:43px;
+  border-radius:50%;
+  background:white;
+  border:1px solid #e4ebe5;
+  display:grid;
+  place-items:center;
+  overflow:hidden;
+  color:var(--green);
+  font-weight:800;
+  font-size:20px;
+}
+
+.logo-wrap img { width:100%; height:100%; object-fit:cover; }
+
+.brand-name {
+  font-weight:800;
+  letter-spacing:2px;
+  font-size:17px;
+  color:var(--green);
+}
+
+.main {
+  max-width:680px;
+  margin:0 auto;
+  padding:10px 18px 28px;
+}
+
+.welcome { font-size:13px; color:var(--muted); margin:0 2px 14px; }
+
+/* ---------- Connexion ---------- */
+.login-card {
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:22px;
+  padding:24px 20px 20px;
+  box-shadow:0 14px 34px #142c1a12;
+}
+
+.login-card h2 { margin:0 0 4px; font-size:19px; color:#173626; text-align:center; }
+.login-card .welcome { text-align:center; margin-bottom:18px; }
+
+.field { margin-bottom:13px; position:relative; }
+
+.field > label {
+  display:block;
+  font-size:12px;
+  font-weight:600;
+  color:var(--muted);
+  margin:0 0 6px 4px;
+}
+
+.field input {
+  width:100%;
+  height:46px;
+  border:1.5px solid #dfe9e1;
+  background:#f8fbf8;
+  border-radius:14px;
+  padding:0 16px;
+  color:var(--ink);
+  font-size:14px;
+  outline:none;
+  transition:border-color .2s, box-shadow .2s, background .2s;
+}
+
+.field input:focus {
+  border-color:var(--accent);
+  background:#fff;
+  box-shadow:0 0 0 4px rgba(76,154,42,.15);
+}
+
+.field input::placeholder { color:#9aa793; }
+
+.primary {
+  width:100%;
+  height:48px;
+  border:0;
+  border-radius:14px;
+  background:linear-gradient(135deg,var(--accent-light),var(--accent));
+  color:#fff;
+  font-size:14px;
+  font-weight:800;
+  letter-spacing:.5px;
+  margin-top:6px;
+  box-shadow:0 8px 18px rgba(76,154,42,.30);
+  transition:transform .15s, filter .2s;
+}
+
+.primary:hover { filter:brightness(1.05); }
+.primary:active { transform:scale(.98); }
+.primary:disabled { opacity:.6; cursor:not-allowed; }
+
+.status { font-size:12px; color:var(--muted); margin:12px 4px 0; }
+.status.error { color:#d64545; }
+.status:empty { display:none; }
+
+/* Sélecteur de pays */
+.select-trigger {
+  width:100%;
+  height:46px;
+  border:1.5px solid #dfe9e1;
+  background:#f8fbf8;
+  border-radius:14px;
+  padding:0 16px;
+  color:var(--ink);
+  font-size:14px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  text-align:left;
+  transition:border-color .2s, box-shadow .2s, background .2s;
+}
+
+.select.open .select-trigger,
+.select-trigger:focus-visible {
+  border-color:var(--accent);
+  background:#fff;
+  box-shadow:0 0 0 4px rgba(76,154,42,.15);
+  outline:none;
+}
+
+.select-trigger .value { flex:1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.select-trigger .chev { width:14px; height:14px; flex:none; transition:transform .2s; }
+.select.open .chev { transform:rotate(180deg); }
+
+.select-panel {
+  position:absolute;
+  left:0; right:0;
+  top:calc(100% + 6px);
+  z-index:50;
+  background:#fff;
+  border:1.5px solid #dfe9e1;
+  border-radius:16px;
+  box-shadow:0 18px 40px rgba(12,38,29,.20);
+  padding:6px;
+  display:none;
+  animation:pop .16s ease-out;
+}
+
+.select.open .select-panel { display:block; }
+
+.select-panel div[data-iso] {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:11px 12px;
+  border-radius:10px;
+  font-size:14px;
+  cursor:pointer;
+}
+
+.select-panel div[data-iso] .flag { font-size:18px; line-height:1; }
+.select-panel div[data-iso] .name { flex:1; }
+.select-panel div[data-iso] .code { color:var(--muted); font-size:12px; font-weight:600; }
+.select-panel div[data-iso]:hover { background:#eef5ef; }
+
+.select-panel div[data-iso].selected {
+  background:linear-gradient(135deg,var(--accent-light),var(--accent));
+  color:#fff;
+}
+
+.select-panel div[data-iso].selected .code { color:rgba(255,255,255,.85); }
+
+/* ---------- Carte du solde ---------- */
+.balance-card {
+  position:relative;
+  overflow:hidden;
+  border-radius:23px;
+  padding:23px 22px 20px;
+  color:white;
+  background:linear-gradient(125deg,#103c2b 0%,#0b281e 58%,#173e30 100%);
+  box-shadow:0 14px 30px #0b281e20;
+}
+
+.balance-card:before,
+.balance-card:after {
+  content:"";
+  position:absolute;
+  border:1px solid #ffffff16;
+  border-radius:50%;
+  width:230px;
+  height:230px;
+  right:-90px;
+  top:-115px;
+}
+
+.balance-card:after { width:175px; height:175px; right:-62px; top:-87px; }
+
+.card-top, .card-actions { position:relative; z-index:1; }
+
+.card-top {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.balance-label { font-size:12px; color:#c2d8cb; letter-spacing:.5px; }
+
+.card-chip {
+  width:35px;
+  height:26px;
+  border-radius:6px;
+  border:1px solid #d7e3c580;
+  background:linear-gradient(135deg,#d8c18a88,#ffffff22);
+}
+
+.balance-value {
+  position:relative;
+  z-index:1;
+  font-size:32px;
+  letter-spacing:1px;
+  font-weight:750;
+  margin:13px 0 20px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.currency { font-size:15px; font-weight:600; color:#d2e4d9; }
+
+.eye {
+  border:0;
+  background:transparent;
+  color:#d6e9dc;
+  padding:5px;
+  display:grid;
+  place-items:center;
+}
+
+.card-actions {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:11px;
+  border-top:1px solid #ffffff24;
+  padding-top:16px;
+}
+
+.action {
+  height:44px;
+  border:0;
+  border-radius:13px;
+  font-weight:750;
+  font-size:13px;
+  background:var(--mint);
+  color:#0c261d;
+  transition:transform .15s;
+}
+
+.action:active { transform:scale(.97); }
+
+.action.secondary {
+  background:#ffffff14;
+  color:#fff;
+  border:1px solid #ffffff30;
+}
+
+/* ---------- Services ---------- */
+.section-title {
+  font-size:15px;
+  font-weight:750;
+  margin:28px 2px 14px;
+  color:#1d3026;
+}
+
+.services {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:12px;
+}
+
+.service {
+  min-height:108px;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:17px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  padding:8px;
+  color:#263a2f;
+  box-shadow:0 4px 12px #142c1a05;
+  transition:transform .15s;
+}
+
+.service:active { transform:scale(.97); }
+
+.iconbox {
+  width:39px;
+  height:39px;
+  border-radius:13px;
+  background:#edf5ef;
+  color:#20583e;
+  display:grid;
+  place-items:center;
+}
+
+.service strong { font-size:11px; font-weight:700; text-align:center; }
+.service small { font-size:9.5px; color:var(--muted); text-align:center; margin-top:-6px; }
+
+/* ---------- Navigation basse ---------- */
+.bottom-nav {
+  position:fixed;
+  z-index:10;
+  bottom:0;
+  left:0;
+  right:0;
+  background:#fff;
+  border-top:1px solid #e9eee9;
+  padding:9px 12px calc(9px + env(safe-area-inset-bottom));
+  display:flex;
+  justify-content:space-around;
+  box-shadow:0 -6px 20px #17352208;
+}
+
+.nav-item {
+  min-width:58px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:5px;
+  border:0;
+  background:transparent;
+  color:#829087;
+  font-size:10px;
+  font-weight:600;
+}
+
+.nav-item.active { color:#17613e; }
+.nav-item svg { width:21px; height:21px; }
+
+/* ---------- Fenêtre communautés ---------- */
+.modal-backdrop {
+  position:fixed;
+  inset:0;
+  z-index:30;
+  background:#07150f99;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:22px;
+}
+
+.modal-backdrop.show { display:flex; }
+
+.modal {
+  width:min(100%,410px);
+  background:#fff;
+  border-radius:24px;
+  padding:25px 21px 20px;
+  box-shadow:0 24px 80px #0004;
+  text-align:center;
+  animation:pop .22s ease-out;
+}
+
+@keyframes pop {
+  from { opacity:0; transform:translateY(12px) scale(.98); }
+  to { opacity:1; transform:none; }
+}
+
+.modal-mark {
+  width:55px;
+  height:55px;
+  margin:0 auto 14px;
+  border-radius:18px;
+  background:#edf5ef;
+  color:#20583e;
+  display:grid;
+  place-items:center;
+}
+
+.modal h2 { font-size:20px; margin:0 0 9px; color:#173626; }
+.modal p { font-size:13px; line-height:1.6; color:#6b786f; margin:0 0 19px; }
+
+.join {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:100%;
+  border:0;
+  border-radius:13px;
+  padding:13px 14px;
+  margin-top:10px;
+  color:#fff;
+  font-size:14px;
+  font-weight:700;
+  text-decoration:none;
+}
+
+.whatsapp { background:#176b45; }
+.telegram { background:#2376a8; }
+
+.ignore {
+  border:0;
+  background:transparent;
+  color:#758178;
+  font-weight:650;
+  font-size:13px;
+  padding:14px 18px 5px;
+  margin-top:7px;
+}
+
+.notice { font-size:10px; color:#9aa49d; margin-top:13px; }
+
+@media(max-width:390px) {
+  .main { padding-left:14px; padding-right:14px; }
+  .services { gap:9px; }
+  .balance-value { font-size:29px; }
+}
+</style>
+</head>
+
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <div class="logo-wrap">
+      <img src="/logo.png" alt="CARGILL"
+           onerror="this.style.display='none';this.parentElement.textContent='C'">
+    </div>
+    <div class="brand-name">CARGILL</div>
+  </div>
+</header>
+
+<main class="main">
+
+  <!-- CONNEXION -->
+  <section id="loginSection">
+    <div class="login-card">
+      <h2>Bienvenue sur CARGILL</h2>
+      <p class="welcome">Connectez-vous pour accéder à votre espace.</p>
+
+      <div class="field">
+        <label id="countryLabel">Pays</label>
+        <div class="select" id="countrySelect">
+          <button type="button" class="select-trigger" id="countryTrigger"
+                  aria-haspopup="listbox" aria-expanded="false" aria-labelledby="countryLabel">
+            <span class="value" id="countryValue"></span>
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="#4c9a2a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="select-panel" id="countryPanel" role="listbox"></div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="phone">Numéro de téléphone</label>
+        <input id="phone" type="tel" inputmode="numeric" autocomplete="tel-national"
+               placeholder="Votre numéro de téléphone">
+      </div>
+
+      <div class="field">
+        <label for="password">Mot de passe</label>
+        <input id="password" type="password" autocomplete="current-password"
+               placeholder="Votre mot de passe">
+      </div>
+
+      <button class="primary" id="loginButton" type="button" onclick="login()">SE CONNECTER</button>
+      <p id="loginStatus" class="status"></p>
+    </div>
+  </section>
+
+  <!-- ACCUEIL -->
+  <section id="homeSection" class="hidden">
+
+    <section class="balance-card" aria-label="Solde du compte">
+      <div class="card-top">
+        <span class="balance-label">SOLDE DISPONIBLE</span>
+        <span class="card-chip" aria-hidden="true"></span>
+      </div>
+
+      <div class="balance-value">
+        <span id="balanceText">••••••••</span>
+        <span class="currency">XOF</span>
+
+        <button class="eye" id="toggleBalance" aria-label="Afficher ou masquer le solde">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="1.7">
+            <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/>
+            <circle cx="12" cy="12" r="3"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="card-actions">
+        <button class="action" onclick="navigate('depot.html')">＋ Dépôt</button>
+        <button class="action secondary" onclick="navigate('retrait.html')">↗ Retrait</button>
+      </div>
+    </section>
+
+    <h2 class="section-title">Services</h2>
+
+    <section class="services" aria-label="Services CARGILL">
+
+      <button class="service" onclick="navigate('cadeaux.html')">
+        <span class="iconbox">
+          <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.7">
+            <path d="M3 10h18v11H3zM2 6h20v4H2zM12 6v15"/>
+            <path d="M12 6H8a2 2 0 1 1 2-2c0 1.1 2 2 2 2Zm0 0h4a2 2 0 1 0-2-2c0 1.1-2 2-2 2Z"/>
+          </svg>
+        </span>
+        <strong>Cadeaux</strong>
+        <small>Vos récompenses</small>
+      </button>
+
+      <button class="service" onclick="navigate('presence.html')">
+        <span class="iconbox">
+          <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.7">
+            <rect x="3" y="4" width="18" height="17" rx="2"/>
+            <path d="M8 2v4m8-4v4M3 9h18m-13 5 2 2 4-4"/>
+          </svg>
+        </span>
+        <strong>Présence</strong>
+        <small>Récompense du jour</small>
+      </button>
+
+      <button class="service" onclick="navigate('historique.html')">
+        <span class="iconbox">
+          <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.7">
+            <path d="M4 5h16v14H4zM8 9h8M8 13h5M8 17h3"/>
+          </svg>
+        </span>
+        <strong>Historique</strong>
+        <small>Vos transactions</small>
+      </button>
+
+      <button class="service" onclick="navigate('preuves.html')">
+        <span class="iconbox">
+          <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.7">
+            <rect x="3" y="4" width="18" height="16" rx="2"/>
+            <circle cx="8.5" cy="9" r="1.5"/>
+            <path d="m21 15-5-5L5 20"/>
+          </svg>
+        </span>
+        <strong>Preuves</strong>
+        <small>Galerie des preuves</small>
+      </button>
+
+      <button class="service" onclick="navigate('code-cadeau.html')">
+        <span class="iconbox">
+          <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.7">
+            <path d="M3 8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-2a2 2 0 0 0 0-4Z"/>
+            <path d="M14 6v12" stroke-dasharray="2 2"/>
+          </svg>
+        </span>
+        <strong>Code cadeau</strong>
+        <small>Utiliser un code</small>
+      </button>
+
+    </section>
+
+    <p id="dashboardStatus" class="status"></p>
+  </section>
+
+</main>
+
+<!-- NAVIGATION BASSE -->
+<nav class="bottom-nav hidden" id="bottomNav" aria-label="Navigation principale">
+
+  <button class="nav-item active" onclick="navigate('accueil.html')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+      <path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-6v-7h-4v7H4a1 1 0 0 1-1-1z"/>
+    </svg>
+    <span>Accueil</span>
+  </button>
+
+  <button class="nav-item" onclick="navigate('produits.html')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+      <path d="M4 7h16v14H4zM2 3h20v4H2zM9 11h6"/>
+    </svg>
+    <span>Produits</span>
+  </button>
+
+  <button class="nav-item" onclick="navigate('equipe.html')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+      <circle cx="9" cy="8" r="3"/>
+      <path d="M3 20v-1a6 6 0 0 1 12 0v1m1-14a3 3 0 0 1 0 6m2 2a5 5 0 0 1 3 5v1"/>
+    </svg>
+    <span>Équipe</span>
+  </button>
+
+  <button class="nav-item" onclick="navigate('profil.html')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+      <circle cx="12" cy="8" r="4"/>
+      <path d="M4 21a8 8 0 0 1 16 0"/>
+    </svg>
+    <span>Profil</span>
+  </button>
+
+</nav>
+
+<!-- FENÊTRE COMMUNAUTÉS -->
+<div class="modal-backdrop" id="communityModal"
+     role="dialog" aria-modal="true" aria-labelledby="communityTitle">
+
+  <div class="modal">
+
+    <div class="modal-mark">
+      <svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+        <path d="M20 11.5a7.5 7.5 0 0 1-11.2 6.5L4 19l1.1-4.2A7.5 7.5 0 1 1 20 11.5Z"/>
+        <path d="M8.5 9.2c.5 2 2.3 3.8 4.3 4.3l1-1 1.8.8-.2 1.5c-3.7.8-8.4-3.9-7.6-7.6l1.5-.2.8 1.8z"/>
+      </svg>
+    </div>
+
+    <h2 id="communityTitle">Rejoignez nos communautés officielles</h2>
+
+    <p>
+      Recevez les annonces, les informations importantes
+      et les actualités de CARGILL sur nos canaux officiels.
+    </p>
+
+    <a class="join whatsapp"
+       href="https://whatsapp.com/channel/0029VbEN9Co23n3kX8qbWu2N"
+       target="_blank" rel="noopener noreferrer">Rejoindre WhatsApp</a>
+
+    <a class="join telegram"
+       href="https://t.me/+ZDXS_mGt-3gxMDU0"
+       target="_blank" rel="noopener noreferrer">Rejoindre Telegram</a>
+
+    <button class="ignore" id="ignoreCommunity">Ignorer pour le moment</button>
+
+    <div class="notice">Vous pourrez rejoindre ces communautés plus tard.</div>
+
+  </div>
+</div>
+
+<script>
+const API = "https://kbfnuyojfmhohdbhmmyx.supabase.co/functions/v1/";
+const AUTH_URL = API + "cargill-auth";
+const DASHBOARD_URL = API + "cargill-dashboard";
+
+// Identifiants conservés uniquement en mémoire vive de cette page.
+let credentials = null;
+let actualBalance = null;
+let balanceVisible = false;
+
+/* ---------- Sélecteur de pays ---------- */
+const COUNTRIES = [
+  { iso2:"BJ", name:"Bénin", code:"+229" },
+  { iso2:"BF", name:"Burkina Faso", code:"+226" },
+  { iso2:"CI", name:"Côte d'Ivoire", code:"+225" }
+];
+let selectedCountry = "BF";
+
+const selRoot = document.getElementById("countrySelect");
+const selTrigger = document.getElementById("countryTrigger");
+const selValue = document.getElementById("countryValue");
+const selPanel = document.getElementById("countryPanel");
+
+function flagEmoji(iso2) {
+  return String.fromCodePoint(...iso2.toUpperCase().split("").map(c => 127397 + c.charCodeAt(0)));
+}
+
+function renderCountries() {
+  selPanel.innerHTML = "";
+  COUNTRIES.forEach(c => {
+    const row = document.createElement("div");
+    row.setAttribute("role", "option");
+    row.dataset.iso = c.iso2;
+    if (c.iso2 === selectedCountry) row.classList.add("selected");
+    row.innerHTML = '<span class="flag">' + flagEmoji(c.iso2) + '</span><span class="name"></span><span class="code">' + c.code + '</span>';
+    row.querySelector(".name").textContent = c.name;
+    row.addEventListener("click", () => { selectedCountry = c.iso2; updateCountry(); closeSelect(); });
+    selPanel.appendChild(row);
+  });
+}
+
+function updateCountry() {
+  const c = COUNTRIES.find(x => x.iso2 === selectedCountry);
+  selValue.textContent = flagEmoji(c.iso2) + "  " + c.name + " (" + c.code + ")";
+  renderCountries();
+}
+
+function closeSelect() {
+  selRoot.classList.remove("open");
+  selTrigger.setAttribute("aria-expanded", "false");
+}
+
+selTrigger.addEventListener("click", () => {
+  const open = selRoot.classList.toggle("open");
+  selTrigger.setAttribute("aria-expanded", String(open));
+});
+document.addEventListener("click", e => { if (!selRoot.contains(e.target)) closeSelect(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeSelect(); });
+updateCountry();
+
+/* ---------- Connexion ---------- */
+async function login() {
+  const country = selectedCountry;
+  const phone = document.getElementById("phone").value.trim();
+  const password = document.getElementById("password").value;
+  const status = document.getElementById("loginStatus");
+  const button = document.getElementById("loginButton");
+
+  if (!/^[0-9]{6,20}$/.test(phone) || !password) {
+    status.textContent = "Veuillez remplir tous les champs correctement.";
+    status.className = "status error";
+    return;
+  }
+
+  button.disabled = true;
+  status.textContent = "Vérification...";
+  status.className = "status";
+
+  try {
+    const response = await fetch(AUTH_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        action: "login",
+        country_iso2: country,
+        phone_number: phone,
+        password: password
+      })
+    });
+    let data = {};
+    try { data = await response.json(); } catch (e) {}
+
+    if (!response.ok || !data.user_id) {
+      throw new Error(data.error || "Identifiants incorrects.");
+    }
+    if (data.is_blocked) {
+      throw new Error("Votre compte est bloqué.");
+    }
+
+    credentials = { country_iso2: country, phone_number: phone, password: password };
+
+    document.getElementById("loginSection").classList.add("hidden");
+    document.getElementById("homeSection").classList.remove("hidden");
+    document.getElementById("bottomNav").classList.remove("hidden");
+    document.getElementById("password").value = "";
+    status.textContent = "";
+
+    loadDashboard();
+    maybeShowCommunity();
+  } catch (error) {
+    status.textContent = error.message || "Connexion impossible.";
+    status.className = "status error";
+  } finally {
+    button.disabled = false;
+  }
+}
+
+/* ---------- Tableau de bord ---------- */
+async function loadDashboard() {
+  const status = document.getElementById("dashboardStatus");
+  status.textContent = "Chargement des données du compte...";
+  status.className = "status";
+
+  try {
+    const response = await fetch(DASHBOARD_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ action: "dashboard", ...credentials })
+    });
+    let data = {};
+    try { data = await response.json(); } catch (e) {}
+
+    if (!response.ok) throw new Error(data.error || "Erreur du tableau de bord.");
+    if (typeof data.balance_xof !== "number") {
+      throw new Error("Le solde réel n'a pas été retourné par le serveur.");
+    }
+
+    actualBalance = data.balance_xof;
+    if (balanceVisible) renderBalance();
+    status.textContent = "";
+  } catch (error) {
+    actualBalance = null;
+    status.textContent =
+      "Les données réelles du tableau de bord ne sont pas encore accessibles : " + error.message;
+    status.className = "status error";
+  }
+}
+
+/* ---------- Solde ---------- */
+const balanceText = document.getElementById("balanceText");
+
+function renderBalance() {
+  if (!balanceVisible) balanceText.textContent = "••••••••";
+  else if (actualBalance === null) balanceText.textContent = "Indisponible";
+  else balanceText.textContent = new Intl.NumberFormat("fr-FR").format(actualBalance);
+}
+
+document.getElementById("toggleBalance").addEventListener("click", () => {
+  balanceVisible = !balanceVisible;
+  renderBalance();
+});
+
+/* ---------- Fenêtre des communautés ---------- */
+const modal = document.getElementById("communityModal");
+const modalKey = "cargill_community_prompt_dismissed_v1";
+
+function maybeShowCommunity() {
+  let seen = false;
+  try { seen = !!localStorage.getItem(modalKey); } catch (e) {}
+  if (!seen) setTimeout(() => modal.classList.add("show"), 700);
+}
+
+function closeModal() {
+  modal.classList.remove("show");
+  try { localStorage.setItem(modalKey, "1"); } catch (e) {}
+}
+
+document.getElementById("ignoreCommunity").addEventListener("click", closeModal);
+modal.addEventListener("click", e => { if (e.target === modal) closeModal(); });
+modal.querySelectorAll("a").forEach(link => {
+  link.addEventListener("click", () => {
+    try { localStorage.setItem(modalKey, "1"); } catch (e) {}
+  });
+});
+
+/* ---------- Navigation ---------- */
+function navigate(page) {
+  // Les pages secondaires devront appliquer la même authentification
+  // par identifiants à chaque requête protégée.
+  alert("La page " + page + " sera ouverte après sa création.");
+}
+</script>
+
+</body>
+</html>
