@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#4c9a2a">
+<title>CARGIL — Historique</title>
+<style>
+:root{--gd:#2f6b14;--g:#4c9a2a;--gl:#8cc63f;--ink:#1d2a17;--muted:#6b7a63;--line:#d9e4d0;--soft:#f8fbf4}
+*{box-sizing:border-box;margin:0;padding:0}html,body{min-height:100%}body{min-height:100vh;min-height:100dvh;background:radial-gradient(circle at 12% 5%,rgba(140,198,63,.32),transparent 42%),radial-gradient(circle at 92% 88%,rgba(76,154,42,.25),transparent 48%),#eef5e6;background-attachment:fixed;color:var(--ink);font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif;-webkit-font-smoothing:antialiased;display:flex;justify-content:center}
+.i{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:0 0 auto}.app{width:100%;max-width:440px;padding:18px 15px 105px}
+.top{display:flex;align-items:center;gap:12px;margin:2px 2px 19px}.back{width:39px;height:39px;border-radius:13px;border:1px solid var(--line);background:#fff;color:var(--gd);display:grid;place-items:center;text-decoration:none}.heading{flex:1}.heading h1{font-size:19px;font-weight:900;letter-spacing:-.3px}.heading p{font-size:11px;color:var(--muted);margin-top:3px}
+.summary{background:linear-gradient(135deg,var(--gd),var(--g));border-radius:18px;padding:16px 17px;color:#fff;box-shadow:0 9px 20px rgba(47,107,20,.16);margin-bottom:16px}.summary-label{font-size:10px;opacity:.88;font-weight:750;letter-spacing:.7px;text-transform:uppercase}.summary-value{font-size:25px;font-weight:950;margin-top:5px;letter-spacing:.2px}.summary-note{font-size:10px;opacity:.85;margin-top:4px}
+.filters{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin:0 0 13px}.filter{min-height:38px;border:1px solid var(--line);border-radius:11px;background:rgba(255,255,255,.85);color:var(--muted);font:750 10px inherit;cursor:pointer}.filter.active{background:var(--gd);border-color:var(--gd);color:#fff}
+.list-head{display:flex;align-items:center;justify-content:space-between;margin:0 3px 9px}.list-head h2{font-size:13px;font-weight:900}.list-head span{font-size:10px;color:var(--muted)}.transactions{display:flex;flex-direction:column;gap:9px}.transaction{background:#fff;border:1px solid var(--line);border-radius:15px;padding:13px 13px 12px;box-shadow:0 6px 15px rgba(47,107,20,.055)}.tx-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}.tx-title{font-size:12px;font-weight:900;line-height:1.35;min-width:0}.status{flex:0 0 auto;font-size:9px;font-weight:850;padding:5px 8px;border-radius:7px;line-height:1;white-space:nowrap}.status.success{background:#e6f5e9;color:#24763a}.status.pending{background:#fff2d8;color:#9b6810}.status.failed{background:#fde9e6;color:#b13f32}.tx-description{font-size:10px;color:#65735e;line-height:1.5;margin-top:7px;overflow-wrap:anywhere}.tx-bottom{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;margin-top:11px;padding-top:9px;border-top:1px solid #edf1e9}.tx-meta{display:flex;flex-direction:column;gap:3px;min-width:0}.tx-date{font-size:9px;color:var(--muted)}.tx-ref{font-size:9px;color:#8a9683;overflow-wrap:anywhere}.tx-amount{font-size:15px;font-weight:950;white-space:nowrap;letter-spacing:.1px}.tx-amount.plus{color:#218044}.tx-amount.minus{color:#a74636}.empty,.loading,.error{background:#fff;border:1px dashed var(--line);border-radius:14px;padding:25px 16px;text-align:center;color:var(--muted);font-size:11px;line-height:1.6}.retry{margin-top:10px;border:0;background:var(--gd);color:#fff;border-radius:9px;padding:9px 14px;font:750 10px inherit}
+.bottom{position:fixed;z-index:10;bottom:max(10px,env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);width:min(calc(100% - 24px),416px);display:grid;grid-template-columns:repeat(4,1fr);gap:4px;background:rgba(255,255,255,.96);border:1px solid var(--line);border-radius:20px;padding:6px;box-shadow:0 10px 30px rgba(47,107,20,.18);backdrop-filter:blur(12px)}.nav{height:51px;border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:var(--muted);font-size:9px;font-weight:700;text-decoration:none}.nav.active{background:linear-gradient(135deg,var(--gd),var(--g));color:#fff}.toast{position:fixed;z-index:20;left:50%;bottom:88px;transform:translateX(-50%);display:none;background:#1d2a17;color:#fff;padding:10px 14px;border-radius:11px;font-size:11px;max-width:90%;text-align:center}
+@media(max-width:350px){.app{padding-left:11px;padding-right:11px}.filter{font-size:9px}.transaction{padding:11px}.tx-amount{font-size:14px}}
+</style>
+</head>
+<body>
+<main class="app">
+ <header class="top">
+  <a class="back" href="/compte.html" aria-label="Retour au compte"><svg class="i" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg></a>
+  <div class="heading"><h1>Historique</h1><p>Consultez toutes vos opérations</p></div>
+ </header>
+ <section class="summary"><div class="summary-label">Nombre d'opérations</div><div class="summary-value" id="totalCount">—</div><div class="summary-note">Toutes vos transactions enregistrées</div></section>
+ <div class="filters" role="tablist" aria-label="Filtrer les transactions">
+  <button class="filter active" data-filter="tout" type="button">Tout</button>
+  <button class="filter" data-filter="recharge" type="button">Recharge</button>
+  <button class="filter" data-filter="retrait" type="button">Retrait</button>
+  <button class="filter" data-filter="autres" type="button">Autres</button>
+ </div>
+ <div class="list-head"><h2>Mes transactions</h2><span>Plus récentes d'abord</span></div>
+ <section class="transactions" id="transactions"><div class="loading">Chargement de votre historique…</div></section>
+ <nav class="bottom" aria-label="Navigation principale">
+  <a class="nav" href="/accueil.html"><svg class="i" viewBox="0 0 24 24"><path d="M3 11l9-8 9 8M5 10v10h14V10"/></svg><span>Accueil</span></a>
+  <a class="nav" href="/forfaits.html"><svg class="i" viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5 9-5zM3 13l9 5 9-5"/></svg><span>Produits</span></a>
+  <a class="nav" href="/reseau.html"><svg class="i" viewBox="0 0 24 24"><path d="M16 20v-1a4 4 0 00-4-4H7a4 4 0 00-4 4v1"/><circle cx="9.5" cy="7" r="4"/><path d="M21 20v-1a4 4 0 00-3-3.9M16 3.1a4 4 0 010 7.8"/></svg><span>Réseau</span></a>
+  <a class="nav active" href="/compte.html"><svg class="i" viewBox="0 0 24 24"><path d="M20 21v-1a5 5 0 00-5-5H9a5 5 0 00-5 5v1"/><circle cx="12" cy="7" r="4"/></svg><span>Compte</span></a>
+ </nav>
+</main>
+<script>
+const API_URL='https://qixliwrgscpdjplvglvq.supabase.co/functions/v1/cargil-api';
+const token=localStorage.getItem('cargil_session_token');
+const $=id=>document.getElementById(id);
+let allTransactions=[];let activeFilter='tout';
+if(!token) location.replace('/connexion.html');
+function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function amount(v){const n=Number(v||0);return Math.abs(n).toLocaleString('fr-FR')+' F'}
+function dateText(v){if(!v)return 'Date non renseignée';const d=new Date(v);if(Number.isNaN(d.getTime()))return String(v);return new Intl.DateTimeFormat('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'}).format(d)}
+function kindOf(t){const s=String(t.type??t.type_transaction??t.categorie??t.operation??'').toLowerCase();if(s.includes('recharg')||s.includes('depot')||s.includes('dépôt'))return 'recharge';if(s.includes('retrait'))return 'retrait';return 'autres'}
+function titleOf(t){const raw=String(t.type??t.type_transaction??t.categorie??t.operation??'Transaction');const map={recharge:'Recharge',depot:'Recharge',dépôt:'Recharge',retrait:'Retrait',achat:'Achat de produit',purchase:'Achat de produit',revenu:'Revenu quotidien',commission:'Commission',cadeau:'Cadeau',pointage:'Pointage'};return map[raw.toLowerCase()]||raw.charAt(0).toUpperCase()+raw.slice(1)}
+function statusOf(t){const s=String(t.statut??t.status??'').toLowerCase();if(['réussi','reussi','success','valide','validé','completed','complete'].includes(s))return ['Réussi','success'];if(['échoué','echoue','failed','rejected','rejete','rejeté'].includes(s))return ['Échoué','failed'];return ['En attente','pending']}
+function descriptionOf(t){return t.description??t.libelle??t.motif??t.details??('Opération : '+titleOf(t))}
+function render(){const filtered=allTransactions.filter(t=>activeFilter==='tout'||kindOf(t)===activeFilter);$('totalCount').textContent=allTransactions.length.toLocaleString('fr-FR');if(!filtered.length){$('transactions').innerHTML='<div class="empty">Aucune transaction à afficher pour cette catégorie.</div>';return;}
+ $('transactions').innerHTML=filtered.map(t=>{const [st,cls]=statusOf(t);const rawAmount=Number(t.montant??t.amount??t.prix??0);const isPlus=['recharge','depot','dépôt','revenu','commission','cadeau','pointage','bonus'].some(x=>String(t.type??t.type_transaction??t.categorie??'').toLowerCase().includes(x));const signed=(isPlus?'+':'−')+amount(rawAmount);const dt=t.created_at??t.date??t.date_creation??t.createdAt;const ref=t.reference??t.reference_transaction??t.id??'';return `<article class="transaction"><div class="tx-head"><div class="tx-title">${esc(titleOf(t))}</div><span class="status ${cls}">${st}</span></div><p class="tx-description">${esc(descriptionOf(t))}</p><div class="tx-bottom"><div class="tx-meta"><span class="tx-date">${esc(dateText(dt))}</span>${ref?`<span class="tx-ref">Référence : ${esc(ref)}</span>`:''}</div><div class="tx-amount ${isPlus?'plus':'minus'}">${signed}</div></div></article>`}).join('')}
+async function loadHistory(){if(!token)return;$('transactions').innerHTML='<div class="loading">Chargement de votre historique…</div>';try{const r=await fetch(API_URL,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},body:JSON.stringify({action:'history'})});const data=await r.json();if(!r.ok||data.success===false||data.error)throw new Error(data.message||data.error||'Le service historique n’est pas disponible.');const rows=Array.isArray(data)?data:(data.transactions??data.historique??data.operations??data.data??[]);if(!Array.isArray(rows))throw new Error('Format de réponse non reconnu.');allTransactions=rows.slice().sort((a,b)=>new Date(b.created_at??b.date??0)-new Date(a.created_at??a.date??0));render()}catch(e){$('transactions').innerHTML=`<div class="error">${esc(e.message||'Impossible de charger les transactions.')}<br><button class="retry" type="button" onclick="loadHistory()">Réessayer</button></div>`}}
+document.querySelectorAll('.filter').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('.filter').forEach(b=>b.classList.remove('active'));btn.classList.add('active');activeFilter=btn.dataset.filter;render()}));
+loadHistory();
+</script>
+</body>
+</html>
