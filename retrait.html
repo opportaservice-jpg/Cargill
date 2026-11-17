@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#4c9a2a">
+<title>CARGIL — Retrait</title>
+<link rel="icon" href="/logo.png">
+<style>
+:root{--green-dark:#2f6b14;--green:#4c9a2a;--green-light:#8cc63f;--ink:#1d2a17;--muted:#6b7a63;--line:#d9e4d0;--soft:#f8fbf4;--red:#b42318}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{min-height:100%}
+body{min-height:100vh;min-height:100dvh;background:radial-gradient(circle at 15% 10%,rgba(140,198,63,.35),transparent 45%),radial-gradient(circle at 90% 90%,rgba(76,154,42,.30),transparent 50%),#eef5e6;background-attachment:fixed;color:var(--ink);font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif;-webkit-font-smoothing:antialiased;display:flex;justify-content:center}
+.i{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:0 0 auto}
+a{color:inherit;text-decoration:none}
+.app{width:100%;max-width:420px;padding:18px 16px 40px}
+
+.top{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.back{width:42px;height:42px;flex:0 0 42px;border-radius:13px;border:1px solid var(--line);background:#fff;color:var(--green-dark);display:grid;place-items:center;box-shadow:0 6px 14px rgba(47,107,20,.08)}
+.top h1{font-size:20px;font-weight:800;color:var(--green-dark)}
+
+/* Carte verte avec logo */
+.balance{background:linear-gradient(135deg,var(--green-dark),var(--green));color:#fff;border-radius:22px;padding:18px;box-shadow:0 18px 40px rgba(47,107,20,.28);position:relative;overflow:hidden}
+.balance:after{content:"";position:absolute;right:-35px;top:-35px;width:130px;height:130px;border-radius:50%;background:rgba(255,255,255,.08)}
+.balance>*{position:relative;z-index:1}
+.b-top{display:flex;align-items:center;gap:12px}
+.logo-circle{width:48px;height:48px;flex:0 0 48px;border-radius:50%;overflow:hidden;background:#fff;box-shadow:0 0 0 4px rgba(255,255,255,.25)}
+.logo-circle img{width:100%;height:100%;object-fit:cover;display:block}
+.kicker{font-size:11px;letter-spacing:1.5px;color:#dbeccb;font-weight:700}
+.b-label{font-size:12px;color:#e6f2da;margin-top:2px}
+.amount-row{display:flex;align-items:baseline;gap:6px;margin-top:16px}
+.amount{font-size:32px;line-height:1.15;font-weight:800;letter-spacing:-.5px}
+.currency{font-size:14px;font-weight:600;color:#dbeccb}
+
+.panel{background:#fff;border:1px solid var(--line);border-radius:22px;margin-top:14px;padding:18px 16px;box-shadow:0 14px 34px rgba(47,107,20,.12)}
+.panel-title{font-size:11px;font-weight:700;letter-spacing:1.5px;color:var(--green);margin-bottom:12px}
+
+.account{display:flex;align-items:center;gap:11px;background:#eaf4df;border:1px solid var(--line);border-radius:14px;padding:12px}
+.account .ico{width:38px;height:38px;flex:0 0 38px;border-radius:12px;background:#fff;color:var(--green-dark);display:grid;place-items:center}
+.account-left{min-width:0;flex:1}
+.operator{font-size:14px;font-weight:800}
+.account-number{font-size:12px;color:var(--muted);margin-top:3px;overflow-wrap:anywhere}
+.change{display:flex;align-items:center;gap:5px;font-size:12px;font-weight:700;color:var(--green-dark);background:#fff;border:1px solid var(--line);border-radius:10px;padding:7px 10px;white-space:nowrap}
+.change .i{width:14px;height:14px}
+.no-account{display:flex;flex-direction:column;gap:12px;font-size:12.5px;line-height:1.5;color:var(--muted);background:var(--soft);border:1px solid var(--line);padding:13px;border-radius:14px}
+.add{display:flex;align-items:center;justify-content:center;gap:7px;height:42px;border-radius:12px;border:1.5px solid var(--green);color:var(--green-dark);font-weight:700;font-size:13px;background:#fff}
+.add .i{width:16px;height:16px}
+
+.field-label{font-size:13px;font-weight:600;display:block;margin-bottom:6px}
+.input-wrap{position:relative}
+input{width:100%;height:52px;border:1.5px solid var(--line);border-radius:14px;padding:0 60px 0 14px;font-size:20px;font-weight:700;font-family:inherit;color:var(--ink);outline:none;transition:border-color .2s,box-shadow .2s}
+input:focus{border-color:var(--green);box-shadow:0 0 0 4px rgba(76,154,42,.14)}
+.unit{position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:12px;font-weight:700}
+.minimum{display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--muted);margin-top:7px}
+.minimum .i{width:14px;height:14px}
+
+.summary{margin-top:16px;background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:4px 13px}
+.line{display:flex;justify-content:space-between;gap:10px;font-size:12.5px;color:var(--muted);padding:10px 0}
+.line strong{font-size:12.5px;color:var(--ink);font-weight:700}
+.line.total{border-top:1px dashed var(--line);color:var(--ink);font-weight:700}
+.line.total strong{font-size:16px;color:var(--green-dark);font-weight:800}
+
+.btn{height:48px;width:100%;border:0;border-radius:14px;background:linear-gradient(135deg,var(--green-dark),var(--green));color:#fff;font-size:14px;font-weight:700;font-family:inherit;margin-top:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 10px 22px rgba(47,107,20,.28);transition:transform .1s}
+.btn:active:not(:disabled){transform:scale(.985)}
+.btn:disabled{opacity:.55;cursor:not-allowed}
+.message{display:none;margin-top:14px;padding:11px 12px;border-radius:12px;font-size:12.5px;line-height:1.45}
+.message.error{display:block;background:#fdecea;color:var(--red)}
+.message.success{display:block;background:#eaf4df;color:var(--green-dark)}
+</style>
+</head>
+<body>
+<main class="app">
+<header class="top">
+ <a class="back" href="/accueil.html" aria-label="Retour"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></a>
+ <h1>Retrait</h1>
+</header>
+
+<section class="balance">
+ <div class="b-top">
+  <div class="logo-circle"><img src="/logo.png" alt="Logo CARGIL"></div>
+  <div><div class="kicker">ESPACE MEMBRE</div><div class="b-label">Solde disponible</div></div>
+ </div>
+ <div class="amount-row"><span class="amount" id="balance">—</span><span class="currency">FCFA</span></div>
+</section>
+
+<section class="panel">
+ <h2 class="panel-title">COMPTE BÉNÉFICIAIRE</h2>
+ <div id="accountBox" class="no-account" style="display:none"><span>Aucun compte de retrait enregistré.</span><a class="add" href="/compte-retrait.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><span>Ajouter un compte</span></a></div>
+ <div id="accountCard" class="account" style="display:none">
+  <div class="ico"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7a2 2 0 012-2h12v4"/><path d="M4 7v10a2 2 0 002 2h13a1 1 0 001-1v-3"/><path d="M20 9h-4a2 2 0 000 4h4V9z"/></svg></div>
+  <div class="account-left"><div class="operator" id="operatorName"></div><div class="account-number" id="accountNumber"></div></div>
+  <a class="change" href="/compte-retrait.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4L19 9a2.8 2.8 0 00-4-4L4 16v4z"/></svg><span>Modifier</span></a>
+ </div>
+</section>
+
+<section class="panel">
+ <h2 class="panel-title">MONTANT DU RETRAIT</h2>
+ <label class="field-label" for="amount">Montant</label>
+ <div class="input-wrap"><input id="amount" type="number" inputmode="numeric" min="1500" step="1" placeholder="0"><span class="unit">FCFA</span></div>
+ <div class="minimum"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span>Minimum : 1 500 FCFA</span></div>
+ <div class="summary">
+  <div class="line"><span>Montant demandé</span><strong id="requested">0 FCFA</strong></div>
+  <div class="line"><span>Frais (18 %)</span><strong id="fee">0 FCFA</strong></div>
+  <div class="line total"><span>Vous recevrez</span><strong id="net">0 FCFA</strong></div>
+ </div>
+ <button class="btn" id="submit" type="button" onclick="submitWithdrawal()"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17V5m0 0L8 9m4-4l4 4M4 20h16"/></svg><span>Confirmer le retrait</span></button>
+ <div id="message" class="message"></div>
+</section>
+</main>
+<script>
+
+const API="https://qixliwrgscpdjplvglvq.supabase.co/functions/v1/cargil-api";
+const token=localStorage.getItem("cargil_session_token");
+const $=id=>document.getElementById(id);
+let balance=0,account=null,operators=[];
+const money=n=>Math.round(Number(n)||0).toLocaleString("fr-FR")+" FCFA";
+async function api(data){
+ const r=await fetch(API,{method:"POST",headers:{"Content-Type":"application/json","Authorization":"Bearer "+token},body:JSON.stringify(data)});
+ const d=await r.json().catch(()=>({error:"Erreur serveur"}));
+ if(!r.ok||d.error)throw new Error(d.error||"Une erreur est survenue.");
+ return d;
+}
+function showError(t){$("message").className="message error";$("message").textContent=t}
+function updateAmounts(){
+ const n=Math.max(0,Math.floor(Number($("amount").value)||0));
+ const fee=Math.round(n*.18),net=n-fee;
+ $("requested").textContent=money(n);$("fee").textContent=money(fee);$("net").textContent=money(net);
+}
+$("amount").addEventListener("input",updateAmounts);
+async function init(){
+ if(!token){location.href="/connexion.html";return}
+ try{
+  const [dash,ops]=await Promise.all([api({action:"dashboard"}),api({action:"operators"})]);
+  balance=Number(dash.solde||0);account=dash.compte_retrait;operators=ops.operateurs||[];
+  $("balance").textContent=balance.toLocaleString("fr-FR");
+  if(account){
+   const op=operators.find(x=>x.id===account.operateur_id);
+   $("operatorName").textContent=op?op.nom:"Mobile Money";
+   $("accountNumber").textContent=account.numero_beneficiaire+" · "+account.nom_beneficiaire;
+   $("accountCard").style.display="flex";
+  }else{$("accountBox").style.display="block"}
+ }catch(e){showError(e.message==="SESSION_INVALIDE_OU_EXPIREE"?"Votre session a expiré. Reconnectez-vous.":e.message)}
+}
+async function submitWithdrawal(){
+ const n=Math.floor(Number($("amount").value)||0);
+ $("message").className="message";$("message").textContent="";
+ if(!account){showError("Veuillez d'abord enregistrer un compte de retrait.");return}
+ if(!Number.isSafeInteger(n)||n<1500){showError("Le montant minimum est de 1 500 FCFA.");return}
+ if(n>balance){showError("Votre solde est insuffisant.");return}
+ const btn=$("submit");btn.disabled=true;btn.querySelector("span").textContent="Traitement…";
+ try{
+  const result=await api({action:"withdrawal",montant:n,compte_retrait_id:account.id});
+  $("message").className="message success";
+  $("message").textContent="Votre demande de retrait a été enregistrée.";
+  balance-=n;$("balance").textContent=balance.toLocaleString("fr-FR");$("amount").value="";updateAmounts();
+  btn.querySelector("span").textContent="Demande envoyée";
+ }catch(e){
+  const errors={
+   RETRAIT_MINIMUM_NON_ATTEINT:"Le montant minimum est de 1 500 FCFA.",
+   HORS_HORAIRE_RETRAIT:"Les retraits sont disponibles de 08 h à 18 h.",
+   ACHAT_PRODUIT_REQUIS:"Vous devez avoir acheté au moins un forfait avant de retirer.",
+   COMPTE_RETRAIT_INVALIDE:"Votre compte de retrait est invalide. Veuillez le vérifier.",
+   SOLDE_INSUFFISANT:"Votre solde est insuffisant."
+  };
+  showError(errors[e.message]||"Impossible d'envoyer la demande. Réessayez.");
+  btn.disabled=false;btn.querySelector("span").textContent="Confirmer le retrait";
+ }
+}
+init();
+</script>
+</body>
+</html>
