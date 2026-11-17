@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#4c9a2a">
+<title>CARGIL — Sécurité</title>
+<link rel="icon" href="/logo.png">
+<style>
+:root{--green-dark:#2f6b14;--green:#4c9a2a;--green-light:#8cc63f;--ink:#1d2a17;--muted:#6b7a63;--line:#d9e4d0;--soft:#f8fbf4;--red:#b42318}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{min-height:100%}
+body{min-height:100vh;min-height:100dvh;background:radial-gradient(circle at 15% 10%,rgba(140,198,63,.35),transparent 45%),radial-gradient(circle at 90% 90%,rgba(76,154,42,.30),transparent 50%),#eef5e6;background-attachment:fixed;color:var(--ink);font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif;-webkit-font-smoothing:antialiased;display:flex;justify-content:center}
+.i{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:0 0 auto}
+.app{width:100%;max-width:420px;padding:18px 16px 40px}
+.top{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+.back,.help{width:42px;height:42px;flex:0 0 42px;border-radius:13px;border:1px solid var(--line);background:#fff;color:var(--green-dark);display:grid;place-items:center;cursor:pointer;box-shadow:0 6px 14px rgba(47,107,20,.08)}
+.top h1{font-size:20px;font-weight:800;color:var(--green-dark);flex:1}
+.help{font-size:20px;font-weight:800;border-radius:50%;width:38px;height:38px;flex-basis:38px}
+.sub{font-size:12.5px;color:var(--muted);line-height:1.55;margin:8px 4px 16px}
+.hero{background:linear-gradient(135deg,var(--green-dark),var(--green));color:#fff;border-radius:22px;padding:20px 18px;position:relative;overflow:hidden;box-shadow:0 18px 40px rgba(47,107,20,.25)}
+.hero:before{content:"";position:absolute;right:-40px;top:-45px;width:150px;height:150px;border-radius:50%;background:rgba(255,255,255,.08)}
+.hero>*{position:relative;z-index:1}
+.hero-head{display:flex;align-items:center;gap:13px}
+.shield{width:48px;height:48px;border-radius:15px;background:rgba(255,255,255,.16);display:grid;place-items:center}
+.shield .i{width:26px;height:26px}
+.hero strong{display:block;font-size:16px;margin-bottom:4px}
+.hero p{font-size:12px;line-height:1.5;color:#e2f0d7}
+.card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:17px;margin-top:14px;box-shadow:0 14px 34px rgba(47,107,20,.12)}
+.card-title{display:flex;align-items:center;gap:9px;margin-bottom:7px}
+.card-title .ico{width:34px;height:34px;border-radius:11px;background:#eaf4df;color:var(--green-dark);display:grid;place-items:center}
+.card-title strong{font-size:15px}
+.hint{font-size:11.5px;color:var(--muted);line-height:1.5;margin:0 0 16px 43px}
+.field{margin-top:13px}
+.field label{display:block;font-size:12px;font-weight:700;color:#43533b;margin:0 0 7px 2px}
+.input-wrap{position:relative}
+input{width:100%;height:48px;border:1px solid var(--line);border-radius:13px;background:#fbfdf9;padding:0 48px 0 13px;font-size:14px;font-family:inherit;color:var(--ink);outline:none}
+input:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(76,154,42,.12)}
+.toggle{position:absolute;right:7px;top:7px;width:34px;height:34px;border:0;border-radius:10px;background:transparent;color:var(--muted);display:grid;place-items:center;cursor:pointer}
+.toggle .i{width:18px;height:18px}
+.rules{margin-top:14px;padding:12px;border-radius:13px;background:var(--soft);border:1px solid #e5eddf}
+.rules p{font-size:11px;color:var(--muted);line-height:1.55}
+.rules strong{color:var(--green-dark)}
+.primary{width:100%;height:49px;margin-top:17px;border:0;border-radius:14px;background:linear-gradient(135deg,var(--green-dark),var(--green));color:#fff;font-size:14px;font-weight:800;font-family:inherit;cursor:pointer;box-shadow:0 8px 18px rgba(47,107,20,.2)}
+.primary:disabled{opacity:.55;cursor:not-allowed}
+.msg{display:none;margin-top:12px;border-radius:12px;padding:11px 12px;font-size:12.5px;line-height:1.5;background:#eaf4df;color:var(--green-dark)}
+.msg.error{background:#fdecea;color:var(--red)}
+.note{display:flex;gap:9px;align-items:flex-start;margin:14px 3px 0;color:var(--muted);font-size:11px;line-height:1.5}
+.note .i{width:17px;height:17px;color:var(--green-dark)}
+.foot{text-align:center;color:#8a9683;font-size:11px;margin-top:20px}
+.overlay{position:fixed;inset:0;background:rgba(18,31,13,.56);display:none;align-items:flex-end;justify-content:center;padding:14px;z-index:10}
+.overlay.open{display:flex}
+.modal{width:100%;max-width:420px;max-height:min(82dvh,720px);overflow:auto;background:#fff;border-radius:22px;padding:18px 17px 22px;box-shadow:0 22px 70px rgba(0,0,0,.25);animation:rise .18s ease-out}
+@keyframes rise{from{transform:translateY(16px);opacity:.7}to{transform:translateY(0);opacity:1}}
+.modal-head{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.modal-head .ico{width:36px;height:36px;border-radius:12px;background:#eaf4df;color:var(--green-dark);display:grid;place-items:center}
+.modal-head h2{font-size:17px;color:var(--green-dark);flex:1}
+.close{width:34px;height:34px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--muted);font-size:20px;cursor:pointer}
+.policy-intro{font-size:12px;line-height:1.6;color:var(--muted);margin-bottom:13px}
+.policy-item{padding:12px 0;border-top:1px solid #edf1e9}
+.policy-item strong{display:block;font-size:12.5px;color:var(--ink);margin-bottom:4px}
+.policy-item p{font-size:11.5px;color:var(--muted);line-height:1.6}
+.policy-end{font-size:10.5px;color:#8a9683;line-height:1.5;margin-top:12px}
+@media(min-width:520px){.overlay{align-items:center}}
+</style>
+</head>
+<body>
+<main class="app">
+<header class="top">
+ <button class="back" type="button" onclick="history.length>1?history.back():location.href='/compte.html'" aria-label="Retour"><svg class="i" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg></button>
+ <h1>Sécurité</h1>
+ <button class="help" id="openPolicy" type="button" aria-label="Consulter la politique de sécurité" title="Politique de sécurité">?</button>
+</header>
+<p class="sub">Protégez votre compte en gardant un mot de passe personnel et difficile à deviner.</p>
+
+<section class="hero">
+ <div class="hero-head">
+  <div class="shield"><svg class="i" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg></div>
+  <div><strong>Votre compte, votre sécurité</strong><p>Modifiez votre mot de passe à tout moment depuis cet espace sécurisé.</p></div>
+ </div>
+</section>
+
+<section class="card">
+ <div class="card-title"><div class="ico"><svg class="i" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3M12 14v3"/></svg></div><strong>Modifier le mot de passe</strong></div>
+ <p class="hint">Saisissez votre mot de passe actuel, puis choisissez un nouveau mot de passe.</p>
+ <form id="passwordForm" autocomplete="on">
+  <div class="field">
+   <label for="oldPassword">Mot de passe actuel</label>
+   <div class="input-wrap"><input id="oldPassword" type="password" autocomplete="current-password" placeholder="Votre mot de passe actuel" required><button class="toggle" type="button" data-target="oldPassword" aria-label="Afficher le mot de passe"><svg class="i" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg></button></div>
+  </div>
+  <div class="field">
+   <label for="newPassword">Nouveau mot de passe</label>
+   <div class="input-wrap"><input id="newPassword" type="password" autocomplete="new-password" minlength="8" maxlength="128" placeholder="8 caractères minimum" required><button class="toggle" type="button" data-target="newPassword" aria-label="Afficher le mot de passe"><svg class="i" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg></button></div>
+  </div>
+  <div class="field">
+   <label for="confirmPassword">Confirmer le nouveau mot de passe</label>
+   <div class="input-wrap"><input id="confirmPassword" type="password" autocomplete="new-password" minlength="8" maxlength="128" placeholder="Répétez le nouveau mot de passe" required><button class="toggle" type="button" data-target="confirmPassword" aria-label="Afficher le mot de passe"><svg class="i" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg></button></div>
+  </div>
+  <div class="rules"><p><strong>Conseil :</strong> utilisez au moins 8 caractères. Évitez votre numéro de téléphone, votre date de naissance ou un mot de passe déjà utilisé sur un autre service.</p></div>
+  <button class="primary" id="submitBtn" type="submit">Enregistrer le nouveau mot de passe</button>
+  <div class="msg" id="message" role="status" aria-live="polite"></div>
+ </form>
+</section>
+<div class="note"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 11v5m0-8h.01"/></svg><span>Ne communiquez jamais votre mot de passe, même à une personne qui prétend représenter CARGIL.</span></div>
+<div class="foot">CARGIL · Espace sécurité</div>
+</main>
+
+<div class="overlay" id="policyOverlay" role="dialog" aria-modal="true" aria-labelledby="policyTitle">
+ <section class="modal">
+  <div class="modal-head">
+   <div class="ico"><svg class="i" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="M12 8v4m0 4h.01"/></svg></div>
+   <h2 id="policyTitle">Politique de sécurité</h2>
+   <button class="close" id="closePolicy" type="button" aria-label="Fermer">×</button>
+  </div>
+  <p class="policy-intro">Cette politique présente les règles essentielles à respecter pour protéger votre compte CARGIL et vos informations personnelles.</p>
+  <div class="policy-item"><strong>1. Confidentialité du mot de passe</strong><p>Votre mot de passe est strictement personnel. Ne le partagez avec personne et ne l'envoyez jamais par message ou par téléphone.</p></div>
+  <div class="policy-item"><strong>2. Choix d'un mot de passe sûr</strong><p>Choisissez au moins 8 caractères, difficiles à deviner. Évitez les informations personnelles et n'utilisez pas le même mot de passe sur plusieurs plateformes.</p></div>
+  <div class="policy-item"><strong>3. Vérification avant modification</strong><p>Pour modifier votre mot de passe, CARGIL vérifie d'abord votre mot de passe actuel. Le nouveau mot de passe doit être confirmé correctement.</p></div>
+  <div class="policy-item"><strong>4. Protection de votre appareil</strong><p>Verrouillez votre téléphone, évitez les appareils publics ou partagés et déconnectez-vous lorsque vous utilisez un appareil qui ne vous appartient pas.</p></div>
+  <div class="policy-item"><strong>5. Messages et demandes suspectes</strong><p>Méfiez-vous des personnes qui demandent votre mot de passe, un code de validation ou l'accès à votre compte. Ne transmettez jamais ces informations.</p></div>
+  <div class="policy-item"><strong>6. En cas de problème</strong><p>Si vous pensez qu'une autre personne connaît votre mot de passe ou utilise votre compte, modifiez-le dès que possible et contactez le canal officiel d'assistance CARGIL.</p></div>
+  <p class="policy-end">En utilisant votre espace CARGIL, vous êtes invité à appliquer ces mesures de prudence. Cette page est une politique de sécurité pratique et ne remplace pas les conditions générales ni une politique complète de confidentialité.</p>
+ </section>
+</div>
+
+<script>
+const API='https://qixliwrgscpdjplvglvq.supabase.co/functions/v1/cargil-api';
+const token=localStorage.getItem('cargil_session_token');
+const $=id=>document.getElementById(id);
+function show(message,error=false){$('message').textContent=message;$('message').className='msg'+(error?' error':'');$('message').style.display='block'}
+async function call(body){
+ const r=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},body:JSON.stringify(body)});
+ const d=await r.json().catch(()=>({error:'REPONSE_INVALIDE'}));
+ if(!r.ok||d.error)throw new Error(d.error||'ERREUR_SERVEUR');
+ return d;
+}
+function errorText(code){
+ const messages={
+  SESSION_INVALIDE_OU_EXPIREE:'Votre session a expiré. Veuillez vous reconnecter.',
+  CHAMPS_OBLIGATOIRES:'Veuillez remplir tous les champs.',
+  MOT_DE_PASSE_MINIMUM_8_CARACTERES:'Le nouveau mot de passe doit contenir au moins 8 caractères.',
+  CONFIRMATION_MOT_DE_PASSE_INCORRECTE:'La confirmation ne correspond pas au nouveau mot de passe.',
+  ANCIEN_MOT_DE_PASSE_INCORRECT:'Le mot de passe actuel est incorrect.',
+  NOUVEAU_MOT_DE_PASSE_IDENTIQUE:'Choisissez un mot de passe différent de l’ancien.',
+  ERREUR_SERVEUR:'Une erreur est survenue. Veuillez réessayer.'
+ };
+ return messages[code]||'La modification n’a pas pu être effectuée. Veuillez réessayer.';
+}
+if(!token){location.href='/connexion.html'}
+document.querySelectorAll('.toggle').forEach(btn=>btn.addEventListener('click',()=>{
+ const input=$(btn.dataset.target);input.type=input.type==='password'?'text':'password';
+}));
+$('passwordForm').addEventListener('submit',async e=>{
+ e.preventDefault();
+ const old=$('oldPassword').value,next=$('newPassword').value,confirm=$('confirmPassword').value,btn=$('submitBtn');
+ $('message').style.display='none';
+ if(next.length<8){show(errorText('MOT_DE_PASSE_MINIMUM_8_CARACTERES'),true);return}
+ if(next!==confirm){show(errorText('CONFIRMATION_MOT_DE_PASSE_INCORRECTE'),true);return}
+ btn.disabled=true;btn.textContent='Modification en cours…';
+ try{
+  await call({action:'change_password',ancien_mot_de_passe:old,nouveau_mot_de_passe:next,confirmation_mot_de_passe:confirm});
+  $('passwordForm').reset();show('Votre mot de passe a été modifié avec succès.');
+ }catch(err){
+  if(err.message==='SESSION_INVALIDE_OU_EXPIREE'){show(errorText(err.message),true);setTimeout(()=>location.href='/connexion.html',1300)}
+  else show(errorText(err.message),true);
+ }finally{btn.disabled=false;btn.textContent='Enregistrer le nouveau mot de passe'}
+});
+const overlay=$('policyOverlay');
+$('openPolicy').addEventListener('click',()=>{overlay.classList.add('open');$('closePolicy').focus()});
+$('closePolicy').addEventListener('click',()=>overlay.classList.remove('open'));
+overlay.addEventListener('click',e=>{if(e.target===overlay)overlay.classList.remove('open')});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')overlay.classList.remove('open')});
+</script>
+</body>
+</html>
