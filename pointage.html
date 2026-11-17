@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#4c9a2a">
+<title>CARGIL — Pointage</title>
+<link rel="icon" href="/logo.png">
+<style>
+:root{--green-dark:#2f6b14;--green:#4c9a2a;--green-light:#8cc63f;--ink:#1d2a17;--muted:#6b7a63;--line:#d9e4d0;--soft:#f8fbf4;--red:#b42318}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{min-height:100%}
+body{min-height:100vh;min-height:100dvh;background:radial-gradient(circle at 15% 10%,rgba(140,198,63,.35),transparent 45%),radial-gradient(circle at 90% 90%,rgba(76,154,42,.30),transparent 50%),#eef5e6;background-attachment:fixed;color:var(--ink);font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif;-webkit-font-smoothing:antialiased;display:flex;justify-content:center}
+.i{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:0 0 auto}
+.app{width:100%;max-width:420px;padding:18px 16px 40px}
+
+.top{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+.back{width:42px;height:42px;flex:0 0 42px;border-radius:13px;border:1px solid var(--line);background:#fff;color:var(--green-dark);display:grid;place-items:center;cursor:pointer;box-shadow:0 6px 14px rgba(47,107,20,.08)}
+.top h1{font-size:20px;font-weight:800;color:var(--green-dark)}
+.sub{font-size:12.5px;color:var(--muted);line-height:1.55;margin:8px 4px 14px}
+
+.reward{background:linear-gradient(135deg,var(--green-dark),var(--green));color:#fff;border-radius:22px;padding:20px 18px;text-align:center;position:relative;overflow:hidden;box-shadow:0 18px 40px rgba(47,107,20,.28)}
+.reward:before{content:"";position:absolute;right:-40px;top:-40px;width:140px;height:140px;border-radius:50%;background:rgba(255,255,255,.08)}
+.reward>*{position:relative;z-index:1}
+.logo-circle{width:64px;height:64px;margin:0 auto 10px;border-radius:50%;overflow:hidden;background:#fff;box-shadow:0 0 0 5px rgba(255,255,255,.25),0 10px 22px rgba(0,0,0,.2)}
+.logo-circle img{width:100%;height:100%;object-fit:cover;display:block}
+.eyebrow{font-size:11px;letter-spacing:1.5px;color:#dbeccb;font-weight:700}
+.amount{font-size:36px;font-weight:800;letter-spacing:-.5px;margin:6px 0 14px}
+.amount span{font-size:14px;font-weight:600;color:#dbeccb}
+.primary{width:100%;height:48px;border:0;border-radius:14px;background:#fff;color:var(--green-dark);font-size:14px;font-weight:700;font-family:inherit;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:transform .1s}
+.primary:active:not(:disabled){transform:scale(.985)}
+.primary:disabled{background:rgba(255,255,255,.22);color:#fff;cursor:not-allowed}
+
+.msg{display:none;margin-top:12px;border-radius:12px;padding:11px 12px;font-size:12.5px;line-height:1.45;background:#eaf4df;color:var(--green-dark);text-align:left}
+.msg.error{background:#fdecea;color:var(--red)}
+
+.card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:16px;margin-top:14px;box-shadow:0 14px 34px rgba(47,107,20,.12)}
+.calhead{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.calhead-title{display:flex;align-items:center;gap:9px}
+.calhead-title .ico{width:34px;height:34px;border-radius:11px;background:#eaf4df;color:var(--green-dark);display:grid;place-items:center}
+.calhead strong{font-size:15px;text-transform:capitalize}
+.nav{display:flex;gap:6px}
+.nav button{width:34px;height:34px;border:1px solid var(--line);border-radius:11px;background:#fff;color:var(--green-dark);display:grid;place-items:center;cursor:pointer}
+.nav button .i{width:17px;height:17px}
+.nav button:disabled{opacity:.35;cursor:not-allowed}
+.week,.days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
+.week div{text-align:center;color:var(--muted);font-size:10px;font-weight:700;padding-bottom:6px}
+.day{aspect-ratio:1/1;border:1px solid var(--line);border-radius:10px;background:var(--soft);display:flex;align-items:center;justify-content:center;position:relative;font-size:13px;font-weight:700;color:#4b5a43}
+.day.empty{border:0;background:transparent}
+.day.claimed{background:linear-gradient(135deg,var(--green-dark),var(--green));border-color:var(--green);color:#fff}
+.day.missed{background:#fdf3f2;border-color:#f3cfcb;color:var(--red)}
+.day.future{background:#f1f4ee;color:#b6c0ae}
+.mark{position:absolute;right:3px;top:3px;width:11px;height:11px;display:block}
+.mark svg{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;display:block}
+.legend{display:flex;gap:14px;flex-wrap:wrap;margin-top:14px;color:var(--muted);font-size:11px}
+.legend span{display:flex;align-items:center;gap:6px}
+.dot{width:10px;height:10px;border-radius:3px;display:inline-block}
+.green{background:var(--green)}.red{background:var(--red)}.grey{background:#d3dbcd}
+.info{font-size:11px;color:var(--muted);text-align:center;margin-top:12px}
+.foot{text-align:center;color:#8a9683;font-size:11px;margin-top:18px}
+</style>
+</head>
+<body>
+<main class="app">
+<header class="top">
+ <button class="back" type="button" onclick="history.length>1?history.back():location.href='/compte.html'" aria-label="Retour"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button>
+ <h1>Pointage quotidien</h1>
+</header>
+<p class="sub">Validez votre présence chaque jour et suivez vos pointages dans le calendrier.</p>
+
+<section class="reward">
+ <div class="logo-circle"><img src="/logo.png" alt="Logo CARGIL"></div>
+ <div class="eyebrow">RÉCOMPENSE DU JOUR</div>
+ <div class="amount" id="reward">50 <span>FCFA</span></div>
+ <button class="primary" id="claim" type="button"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Chargement…</span></button>
+ <div class="msg" id="message" role="status"></div>
+</section>
+
+<section class="card">
+ <div class="calhead">
+  <div class="calhead-title"><div class="ico"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></div><strong id="monthTitle">—</strong></div>
+  <div class="nav"><button id="prev" type="button" aria-label="Mois précédent"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button><button id="next" type="button" aria-label="Mois suivant" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></button></div>
+ </div>
+ <div class="week"><div>LUN</div><div>MAR</div><div>MER</div><div>JEU</div><div>VEN</div><div>SAM</div><div>DIM</div></div>
+ <div class="days" id="days"></div>
+ <div class="legend"><span><i class="dot green"></i> Pointage réclamé</span><span><i class="dot red"></i> Non réclamé</span><span><i class="dot grey"></i> À venir</span></div>
+ <p class="info">Les journées vertes correspondent aux récompenses déjà reçues.</p>
+</section>
+<div class="foot">CARGIL · Calendrier des pointages</div>
+</main>
+<script>
+const CHECK='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>',CROSS='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>';
+
+const API='https://qixliwrgscpdjplvglvq.supabase.co/functions/v1/cargil-api';
+const token=localStorage.getItem('cargil_session_token');const $=id=>document.getElementById(id);
+let currentMonth='',today='',claimed=new Set(),reward=50;
+function monthString(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')}
+function parseDate(s){const [y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d)}
+function show(msg,error=false){$('message').textContent=msg;$('message').className='msg'+(error?' error':'');$('message').style.display='block'}
+async function call(body){const r=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},body:JSON.stringify(body)});const d=await r.json().catch(()=>({error:'Réponse invalide'}));if(!r.ok||d.error)throw new Error(d.error||'Une erreur est survenue.');return d}
+function errorText(e){const m=String(e.message||'');if(m==='SESSION_INVALIDE_OU_EXPIREE'){location.href='/connexion.html';return 'Session expirée.'}if(m==='POINTAGE_DEJA_EFFECTUE')return 'Vous avez déjà réclamé la récompense aujourd’hui.';if(m==='POINTAGE_IMPOSSIBLE')return 'Le pointage est momentanément indisponible.';return m}
+async function loadMonth(month){
+ const d=await call({action:'checkin_calendar',mois:month});currentMonth=d.mois;today=d.jour_actuel;reward=Number(d.recompense||50);claimed=new Set((d.jours||[]).map(x=>x.jour));$('reward').innerHTML=reward.toLocaleString('fr-FR')+' <span>FCFA</span>';render();renderButton();
+}
+function render(){
+ const [y,m]=currentMonth.split('-').map(Number),first=new Date(y,m-1,1),count=new Date(y,m,0).getDate(),offset=(first.getDay()+6)%7;
+ $('monthTitle').textContent=new Intl.DateTimeFormat('fr-FR',{month:'long',year:'numeric'}).format(first);
+ const wrap=$('days');wrap.innerHTML='';
+ for(let i=0;i<offset;i++){const el=document.createElement('div');el.className='day empty';wrap.appendChild(el)}
+ for(let n=1;n<=count;n++){
+  const key=currentMonth+'-'+String(n).padStart(2,'0'),el=document.createElement('div'),future=key>today,done=claimed.has(key);
+  el.className='day'+(future?' future':done?' claimed':' missed');
+  const num=document.createElement('span');num.textContent=n;el.appendChild(num);
+  if(!future){const mark=document.createElement('span');mark.className='mark';mark.innerHTML=done?CHECK:CROSS;el.appendChild(mark)}
+  wrap.appendChild(el);
+ }
+ $('prev').disabled=currentMonth==='2026-01';$('next').disabled=currentMonth>=today.slice(0,7);
+}
+function renderButton(){const done=claimed.has(today);$('claim').disabled=done;$('claim').querySelector('span').textContent=done?'Pointage déjà réclamé':'Réclamer ma récompense'}
+$('prev').onclick=async()=>{const d=parseDate(currentMonth+'-01');d.setMonth(d.getMonth()-1);try{await loadMonth(monthString(d));$('message').style.display='none'}catch(e){show(errorText(e),true)}};
+$('next').onclick=async()=>{const d=parseDate(currentMonth+'-01');d.setMonth(d.getMonth()+1);try{await loadMonth(monthString(d));$('message').style.display='none'}catch(e){show(errorText(e),true)}};
+$('claim').onclick=async()=>{const b=$('claim');b.disabled=true;b.querySelector('span').textContent='Validation…';$('message').style.display='none';try{const r=await call({action:'checkin'});show('Pointage validé : '+Number(r.montant||reward).toLocaleString('fr-FR')+' FCFA ajoutés à votre solde.');await loadMonth(currentMonth)}catch(e){show(errorText(e),true);renderButton()}};
+async function init(){if(!token){location.href='/connexion.html';return}try{const now=new Date();await loadMonth(monthString(now))}catch(e){show(errorText(e),true);$('claim').disabled=true;$('claim').querySelector('span').textContent='Indisponible'}}
+init();
+</script>
+</body>
+</html>
