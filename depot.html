@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#4c9a2a">
+<title>CARGIL — Dépôt</title>
+<link rel="icon" href="/logo.png">
+<style>
+:root{--green-dark:#2f6b14;--green:#4c9a2a;--green-light:#8cc63f;--ink:#1d2a17;--muted:#6b7a63;--line:#d9e4d0;--soft:#f8fbf4;--red:#b42318}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{min-height:100%}
+body{min-height:100vh;min-height:100dvh;background:radial-gradient(circle at 15% 10%,rgba(140,198,63,.35),transparent 45%),radial-gradient(circle at 90% 90%,rgba(76,154,42,.30),transparent 50%),#eef5e6;background-attachment:fixed;color:var(--ink);font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif;-webkit-font-smoothing:antialiased;display:flex;justify-content:center}
+.i{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:0 0 auto}
+.app{width:100%;max-width:420px;padding:18px 16px 40px}
+
+.top{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.back{width:42px;height:42px;flex:0 0 42px;border-radius:13px;border:1px solid var(--line);background:#fff;color:var(--green-dark);display:grid;place-items:center;cursor:pointer;box-shadow:0 6px 14px rgba(47,107,20,.08)}
+.heading{flex:1;min-width:0}
+.heading h1{font-size:20px;font-weight:800;color:var(--green-dark)}
+.heading p{font-size:12px;color:var(--muted);margin-top:2px;line-height:1.4}
+.logo-circle{width:42px;height:42px;flex:0 0 42px;border-radius:50%;overflow:hidden;background:#fff;box-shadow:0 0 0 3px rgba(76,154,42,.15),0 6px 14px rgba(47,107,20,.22)}
+.logo-circle img{width:100%;height:100%;object-fit:cover;display:block}
+
+.card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:18px 16px;box-shadow:0 14px 34px rgba(47,107,20,.12)}
+.section-title{font-size:11px;font-weight:700;letter-spacing:1.5px;color:var(--green);margin-bottom:12px}
+.country{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:var(--green-dark);background:#eaf4df;border-radius:12px;padding:10px 12px;margin-bottom:6px}
+.country .i{width:17px;height:17px}
+label{display:block;font-size:13px;font-weight:600;margin:14px 0 6px}
+input{width:100%;height:48px;border:1.5px solid var(--line);border-radius:14px;padding:0 14px;font-size:16px;font-family:inherit;background:#fff;color:var(--ink);outline:none;transition:border-color .2s,box-shadow .2s}
+input:focus{border-color:var(--green);box-shadow:0 0 0 4px rgba(76,154,42,.14)}
+.hint{font-size:11.5px;color:var(--muted);line-height:1.5;margin-top:6px}
+
+.ussd{background:var(--soft);border:1px solid var(--line);border-radius:16px;padding:14px;margin-top:16px}
+.ussd-title{font-size:12px;font-weight:700;color:var(--green-dark);margin-bottom:8px}
+.ussd-code{font-size:20px;font-weight:800;letter-spacing:.4px;color:var(--ink);word-break:break-all;margin-bottom:12px}
+
+.btn{width:100%;height:48px;border:0;border-radius:14px;font-size:14px;font-weight:700;font-family:inherit;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:transform .1s}
+.btn:active:not(:disabled){transform:scale(.985)}
+.btn-outline{background:#fff;color:var(--green-dark);border:1.5px solid var(--green)}
+.btn-green{background:linear-gradient(135deg,var(--green-dark),var(--green));color:#fff;margin-top:18px;box-shadow:0 10px 22px rgba(47,107,20,.28)}
+.btn:disabled{opacity:.55;cursor:not-allowed}
+
+.notice{display:flex;gap:10px;font-size:12px;line-height:1.55;color:var(--muted);background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:12px;margin-top:16px}
+.notice .i{width:18px;height:18px;color:var(--green);margin-top:1px}
+.status{display:none;padding:11px 12px;border-radius:12px;font-size:13px;line-height:1.45;margin-top:14px}
+.status.error{display:block;background:#fdecea;color:var(--red)}
+.status.ok{display:block;background:#eaf4df;color:var(--green-dark)}
+.hidden{display:none!important}
+footer{display:flex;align-items:center;justify-content:center;gap:6px;text-align:center;color:#8a9683;font-size:11px;margin-top:18px}
+footer .i{width:14px;height:14px}
+</style>
+</head>
+<body>
+<main class="app">
+  <header class="top">
+    <button class="back" type="button" onclick="history.back()" aria-label="Retour"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button>
+    <div class="heading"><h1>Effectuer un dépôt</h1><p>Créez votre demande de recharge.</p></div>
+    <div class="logo-circle"><img src="/logo.png" alt="Logo CARGIL"></div>
+  </header>
+
+  <section class="card">
+    <div class="section-title">INFORMATIONS DU DÉPÔT</div>
+    <div class="country"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 010 18M12 3a14 14 0 000 18"/></svg><span id="countryLabel">Pays du compte : vérification…</span></div>
+
+    <label for="amount">Montant à déposer (FCFA)</label>
+    <input id="amount" type="number" inputmode="numeric" min="3000" step="1" placeholder="Minimum 3 000">
+    <div class="hint">Le montant minimum autorisé est de 3 000 FCFA.</div>
+
+    <label for="payer">Numéro de téléphone du payeur</label>
+    <input id="payer" type="tel" inputmode="numeric" autocomplete="tel" placeholder="Numéro utilisé pour le paiement">
+
+    <div id="bfFields" class="hidden">
+      <label for="validationCode">Code de validation à 6 chiffres</label>
+      <input id="validationCode" type="text" inputmode="numeric" autocomplete="off" maxlength="6" placeholder="Saisir les 6 chiffres">
+      <div class="hint">Saisissez le code de validation demandé pour votre dépôt. Ne saisissez jamais votre code PIN secret ou votre mot de passe Mobile Money.</div>
+      <div class="ussd">
+        <div class="ussd-title">Instruction de paiement — Burkina Faso</div>
+        <div class="ussd-code" id="ussdText">*144*4*6*3000#</div>
+        <button class="btn btn-outline" type="button" id="dialBtn"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg><span>Ouvrir le téléphone</span></button>
+        <div class="hint">Le clavier téléphonique s’ouvrira avec le code USSD. Vérifiez le montant, puis lancez l’appel vous-même. Revenez ensuite sur CARGIL pour envoyer votre demande.</div>
+      </div>
+    </div>
+
+    <div id="otherInfo" class="notice hidden"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8v.01"/></svg><span>Après la création de votre demande, vous serez redirigé vers la page de paiement sécurisée.</span></div>
+    <div id="message" class="status" role="status"></div>
+    <button class="btn btn-green" type="button" id="submitBtn"><span>Créer la demande de dépôt</span><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m0 0l-5-5m5 5l-5 5"/></svg></button>
+  </section>
+  <footer><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z"/></svg><span>CARGIL — Paiement sécurisé</span></footer>
+</main>
+<script>
+
+(() => {
+  "use strict";
+  const API = "https://qixliwrgscpdjplvglvq.supabase.co/functions/v1/cargil-api";
+  const GATEWAY = "https://new.sebpay.bj/pay/cargill-SMlocc";
+  const token = localStorage.getItem("cargil_session_token") || "";
+  let user = {};
+  try { user = JSON.parse(localStorage.getItem("cargil_user") || "{}"); } catch (_) {}
+  const country = String(user.pays_id || user.pays || "").toUpperCase();
+  const bf = country === "BF";
+  const amount = document.getElementById("amount");
+  const payer = document.getElementById("payer");
+  const code = document.getElementById("validationCode");
+  const message = document.getElementById("message");
+  const submit = document.getElementById("submitBtn");
+  const bfFields = document.getElementById("bfFields");
+  const otherInfo = document.getElementById("otherInfo");
+  const countryNames = {BF:"Burkina Faso",CI:"Côte d’Ivoire",BJ:"Bénin",TG:"Togo"};
+  document.getElementById("countryLabel").textContent = "Pays du compte : " + (countryNames[country] || country || "non déterminé");
+  if (!token) {
+    show("Votre session a expiré. Veuillez vous reconnecter.", "error");
+    submit.disabled = true;
+  }
+  if (bf) bfFields.classList.remove("hidden");
+  else otherInfo.classList.remove("hidden");
+  if (!bf && !["CI","BJ","TG"].includes(country)) {
+    show("Pays non reconnu. Connectez-vous à nouveau pour continuer.", "error");
+    submit.disabled = true;
+  }
+  function show(text, type) {
+    message.textContent = text;
+    message.className = "status " + type;
+  }
+  function updateUssd() {
+    const n = Math.max(3000, Math.floor(Number(amount.value) || 3000));
+    document.getElementById("ussdText").textContent = `*144*4*6*${n}#`;
+  }
+  amount.addEventListener("input", updateUssd);
+  document.getElementById("dialBtn").addEventListener("click", () => {
+    const n = Number(amount.value);
+    if (!Number.isSafeInteger(n) || n < 3000) {
+      show("Entrez d’abord un montant d’au moins 3 000 FCFA.", "error");
+      amount.focus();
+      return;
+    }
+    const ussd = `*144*4*6*${n}#`;
+    window.location.href = "tel:" + ussd.replace("#", "%23");
+  });
+  submit.addEventListener("click", async () => {
+    message.className = "status";
+    const n = Number(amount.value);
+    const phone = payer.value.replace(/\s+/g, "").trim();
+    const validation = code ? code.value.trim() : "";
+    if (!Number.isSafeInteger(n) || n < 3000) return show("Le montant minimum est de 3 000 FCFA.", "error");
+    if (!/^\d{6,15}$/.test(phone)) return show("Vérifiez le numéro de téléphone du payeur.", "error");
+    if (bf && !/^\d{6}$/.test(validation)) return show("Le code de validation doit contenir exactement 6 chiffres.", "error");
+    submit.disabled = true;
+    submit.querySelector("span").textContent = "Envoi en cours…";
+    try {
+      const response = await fetch(API, {
+        method: "POST",
+        headers: {"Content-Type":"application/json", "Authorization":"Bearer " + token},
+        body: JSON.stringify({
+          action:"deposit",
+          montant:n,
+          numero_payeur:phone,
+          ...(bf ? {code_validation:validation} : {})
+        })
+      });
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok || data.error || data.success === false) {
+        const errors = {
+          DEPOT_MINIMUM_3000:"Le dépôt minimum est de 3 000 FCFA.",
+          NUMERO_PAYEUR_INVALIDE:"Le numéro du payeur est invalide.",
+          CODE_VALIDATION_BF_INVALIDE:"Le code de validation doit contenir 6 chiffres.",
+          SESSION_INVALIDE_OU_EXPIREE:"Votre session a expiré. Reconnectez-vous."
+        };
+        throw new Error(errors[data.error] || data.error || "Impossible de créer la demande. Réessayez.");
+      }
+      show("Demande de dépôt créée. Redirection…", "ok");
+      if (bf) {
+        setTimeout(() => { window.location.href = "/accueil.html"; }, 900);
+      } else {
+        setTimeout(() => { window.location.href = GATEWAY; }, 700);
+      }
+    } catch (e) {
+      show(e.message || "Une erreur est survenue. Réessayez.", "error");
+      submit.disabled = false;
+      submit.querySelector("span").textContent = "Créer la demande de dépôt";
+    }
+  });
+  updateUssd();
+})();
+</script>
+</body>
+</html>
