@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#4c9a2a">
+<title>CARGIL — Cadeaux</title>
+<link rel="icon" href="/logo.png">
+<style>
+:root{--green-dark:#2f6b14;--green:#4c9a2a;--green-light:#8cc63f;--ink:#1d2a17;--muted:#6b7a63;--line:#d9e4d0;--soft:#f8fbf4;--red:#b42318}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{min-height:100%}
+body{min-height:100vh;min-height:100dvh;background:radial-gradient(circle at 15% 10%,rgba(140,198,63,.35),transparent 45%),radial-gradient(circle at 90% 90%,rgba(76,154,42,.30),transparent 50%),#eef5e6;background-attachment:fixed;color:var(--ink);font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif;-webkit-font-smoothing:antialiased;display:flex;justify-content:center}
+.i{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:0 0 auto}
+.app{width:100%;max-width:420px;padding:18px 16px 40px}
+.top{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+.back{width:42px;height:42px;flex:0 0 42px;border-radius:13px;border:1px solid var(--line);background:#fff;color:var(--green-dark);display:grid;place-items:center;cursor:pointer;box-shadow:0 6px 14px rgba(47,107,20,.08)}
+.top h1{font-size:20px;font-weight:800;color:var(--green-dark)}
+.sub{font-size:12.5px;color:var(--muted);line-height:1.55;margin:8px 4px 14px}
+.reward{background:linear-gradient(135deg,var(--green-dark),var(--green));color:#fff;border-radius:22px;padding:20px 18px;text-align:center;position:relative;overflow:hidden;box-shadow:0 18px 40px rgba(47,107,20,.28)}
+.reward:before{content:"";position:absolute;right:-40px;top:-40px;width:140px;height:140px;border-radius:50%;background:rgba(255,255,255,.08)}
+.reward>*{position:relative;z-index:1}
+.logo-circle{width:64px;height:64px;margin:0 auto 10px;border-radius:50%;overflow:hidden;background:#fff;box-shadow:0 0 0 5px rgba(255,255,255,.25),0 10px 22px rgba(0,0,0,.2)}
+.logo-circle img{width:100%;height:100%;object-fit:cover;display:block}
+.eyebrow{font-size:11px;letter-spacing:1.5px;color:#dbeccb;font-weight:700}
+.hero-title{font-size:25px;font-weight:800;letter-spacing:-.4px;margin:7px 0 5px}
+.hero-text{font-size:12px;color:#e3f0d9;line-height:1.5;margin:0 auto 15px;max-width:290px}
+.field-label{display:block;text-align:left;font-size:12px;font-weight:700;color:#e3f0d9;margin:0 2px 7px}
+.field-wrap{height:52px;background:#fff;border-radius:13px;display:flex;align-items:center;padding:0 14px;gap:10px}
+.field-wrap .i{color:var(--green-dark)}
+.field{width:100%;height:100%;border:0;outline:0;background:transparent;color:var(--green-dark);font-size:16px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;min-width:0}
+.field::placeholder{color:#a5b49d;font-size:12px;letter-spacing:1px}
+.primary{width:100%;height:48px;border:0;border-radius:14px;background:#fff;color:var(--green-dark);font-size:14px;font-weight:700;font-family:inherit;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:transform .1s;margin-top:12px}
+.primary:active:not(:disabled){transform:scale(.985)}
+.primary:disabled{background:rgba(255,255,255,.22);color:#fff;cursor:not-allowed}
+.msg{display:none;margin-top:12px;border-radius:12px;padding:11px 12px;font-size:12.5px;line-height:1.45;background:#eaf4df;color:var(--green-dark);text-align:left}
+.msg.error{background:#fdecea;color:var(--red)}
+.msg .amount{font-size:27px;font-weight:800;margin:5px 0 2px}
+.card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:16px;margin-top:14px;box-shadow:0 14px 34px rgba(47,107,20,.12)}
+.card-title{display:flex;align-items:center;gap:9px;margin-bottom:10px}
+.card-title .ico{width:34px;height:34px;border-radius:11px;background:#eaf4df;color:var(--green-dark);display:grid;place-items:center}
+.card-title strong{font-size:15px}
+.steps{display:grid;gap:12px}
+.step{display:flex;align-items:flex-start;gap:10px;color:var(--muted);font-size:12px;line-height:1.5}
+.step-num{width:23px;height:23px;flex:0 0 23px;border-radius:8px;background:#eaf4df;color:var(--green-dark);font-size:11px;font-weight:800;display:grid;place-items:center}
+.foot{text-align:center;color:#8a9683;font-size:11px;margin-top:18px}
+</style>
+</head>
+<body>
+<main class="app">
+<header class="top">
+ <button class="back" type="button" onclick="history.length>1?history.back():location.href='/compte.html'" aria-label="Retour"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button>
+ <h1>Espace cadeaux</h1>
+</header>
+<p class="sub">Utilisez un code cadeau pour recevoir votre récompense directement dans votre portefeuille CARGIL.</p>
+
+<section class="reward">
+ <div class="logo-circle"><img src="/logo.png" alt="Logo CARGIL"></div>
+ <div class="eyebrow">RÉCOMPENSE CARGIL</div>
+ <div class="hero-title">Votre cadeau vous attend</div>
+ <p class="hero-text">Saisissez votre code ci-dessous pour vérifier et réclamer votre récompense.</p>
+ <form id="giftForm">
+  <label class="field-label" for="giftCode">CODE CADEAU</label>
+  <div class="field-wrap">
+   <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12v8H4v-8M2 7h20v5H2zM12 7v13M12 7H7.5a2.5 2.5 0 1 1 2.5-2.5V7Zm0 0h4.5A2.5 2.5 0 1 0 14 4.5V7Z"/></svg>
+   <input class="field" id="giftCode" name="code" type="text" maxlength="64" minlength="3" placeholder="ENTREZ VOTRE CODE" autocomplete="off" autocapitalize="characters" required>
+  </div>
+  <button class="primary" id="claimBtn" type="submit"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Valider le code</span></button>
+ </form>
+ <div class="msg" id="result" role="status" aria-live="polite"></div>
+</section>
+
+<section class="card">
+ <div class="card-title"><div class="ico"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 7h.01"/></svg></div><strong>Comment réclamer votre cadeau</strong></div>
+ <div class="steps">
+  <div class="step"><span class="step-num">1</span><span>Saisissez le code cadeau communiqué par CARGIL.</span></div>
+  <div class="step"><span class="step-num">2</span><span>Appuyez sur « Valider le code » pour lancer la vérification.</span></div>
+  <div class="step"><span class="step-num">3</span><span>Si le code est valide, la récompense est créditée automatiquement sur votre solde.</span></div>
+ </div>
+</section>
+<div class="foot">CARGIL · Espace de récompenses</div>
+</main>
+<script>
+(()=>{
+ const API='https://qixliwrgscpdjplvglvq.supabase.co/functions/v1/cargil-api';
+ const token=localStorage.getItem('cargil_session_token');
+ const form=document.getElementById('giftForm'),input=document.getElementById('giftCode'),btn=document.getElementById('claimBtn'),result=document.getElementById('result');
+ const errors={CODE_CADEAU_INVALIDE:'Ce code cadeau est incorrect ou inexistant.',CODE_CADEAU_INACTIF:'Ce code cadeau n’est plus actif.',CODE_CADEAU_EXPIRE:'La date de validité de ce code est dépassée.',CODE_CADEAU_EPUISE:'Ce code cadeau a atteint sa limite d’utilisations.',CODE_DEJA_UTILISE:'Vous avez déjà utilisé ce code cadeau.',SESSION_INVALIDE_OU_EXPIREE:'Votre session a expiré. Veuillez vous reconnecter.',CADEAU_IMPOSSIBLE:'Impossible de valider ce code pour le moment.'};
+ function show(message,type){result.className='msg'+(type==='error'?' error':'');result.innerHTML=message;result.style.display='block';}
+ if(!token){btn.disabled=true;show('Votre session est introuvable. Veuillez vous reconnecter.','error');}
+ input.addEventListener('input',()=>{input.value=input.value.toUpperCase().replace(/\s+/g,'');result.style.display='none';});
+ form.addEventListener('submit',async e=>{
+  e.preventDefault();if(!token)return;
+  const code=input.value.trim().toUpperCase();if(code.length<3){show('Veuillez saisir un code cadeau valide.','error');return;}
+  btn.disabled=true;btn.querySelector('span').textContent='Vérification…';result.style.display='none';
+  try{
+   const response=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},body:JSON.stringify({action:'gift_redeem',code})});
+   const data=await response.json().catch(()=>({error:'CADEAU_IMPOSSIBLE'}));
+   if(!response.ok||!data.success){show(errors[data.error]||'La validation du code a échoué. Réessayez.','error');return;}
+   const amount=Number(data.montant||0).toLocaleString('fr-FR');
+   const balance=data.nouveau_solde==null?'':`<div style="margin-top:8px;font-size:12px">Nouveau solde : <b>${Number(data.nouveau_solde).toLocaleString('fr-FR')} FCFA</b></div>`;
+   show(`<b>Code cadeau validé avec succès.</b><div class="amount">+${amount} FCFA</div><div>La récompense a été ajoutée à votre solde.</div>${balance}`,'ok');
+   input.value='';btn.querySelector('span').textContent='Code validé';
+  }catch(err){show('Connexion impossible. Vérifiez votre réseau puis réessayez.','error');}
+  finally{if(btn.querySelector('span').textContent!=='Code validé'){btn.disabled=false;btn.querySelector('span').textContent='Valider le code';}}
+ });
+})();
+</script>
+</body>
+</html>
